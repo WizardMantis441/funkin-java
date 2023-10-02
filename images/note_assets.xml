@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.0.4 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="texture.png" width="1066" height="1015">
+	<SubTexture name="arrow static instance 10000" x="230" y="695" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="158"/>
+	<SubTexture name="down confirm instance 10000" x="3" y="3" width="229" height="229" frameX="-2" frameY="-1" frameWidth="240" frameHeight="236"/>
+	<SubTexture name="down confirm instance 10001" x="238" y="3" width="229" height="229" frameX="-2" frameY="-1" frameWidth="240" frameHeight="236"/>
+	<SubTexture name="up confirm instance 10000" x="3" y="238" width="227" height="226" frameX="-4" frameY="-2" frameWidth="238" frameHeight="234"/>
+	<SubTexture name="up confirm instance 10001" x="236" y="238" width="227" height="226" frameX="-4" frameY="-2" frameWidth="238" frameHeight="234"/>
+	<SubTexture name="left confirm instance 10000" x="3" y="470" width="221" height="222" frameX="-2" frameY="-2" frameWidth="230" frameHeight="232"/>
+	<SubTexture name="right confirm instance 10000" x="230" y="470" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+	<SubTexture name="right confirm instance 10001" x="473" y="3" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+	<SubTexture name="left confirm instance 10002" x="469" y="238" width="218" height="217" frameX="-4" frameY="-4" frameWidth="230" frameHeight="232"/>
+	<SubTexture name="right confirm instance 10002" x="469" y="461" width="218" height="218" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+	<SubTexture name="left confirm instance 10001" x="696" y="3" width="211" height="213" frameX="-7" frameY="-7" frameWidth="230" frameHeight="232"/>
+	<SubTexture name="down confirm instance 10002" x="696" y="222" width="210" height="211" frameX="-8" frameY="-13" frameWidth="240" frameHeight="236"/>
+	<SubTexture name="up confirm instance 10002" x="693" y="439" width="205" height="204" frameX="-15" frameY="-13" frameWidth="238" frameHeight="234"/>
+	<SubTexture name="blue instance 10000" x="3" y="698" width="158" height="154" frameX="-0" frameY="-0" frameWidth="158" frameHeight="154"/>
+	<SubTexture name="arrow static instance 20000" x="390" y="695" width="157" height="154" frameX="-0" frameY="-1" frameWidth="157" frameHeight="155"/>
+	<SubTexture name="arrow static instance 30000" x="553" y="685" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="157"/>
+	<SubTexture name="arrow static instance 40000" x="713" y="649" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="green instance 10000" x="3" y="858" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="purple instance 10000" x="390" y="855" width="154" height="157" frameX="-0" frameY="-0" frameWidth="154" frameHeight="157"/>
+	<SubTexture name="red instance 10000" x="550" y="855" width="154" height="157" frameX="-0" frameY="-0" frameWidth="154" frameHeight="157"/>
+	<SubTexture name="up press instance 10002" x="166" y="858" width="154" height="150" frameX="-0" frameY="-1" frameWidth="154" frameHeight="151"/>
+	<SubTexture name="right press instance 10002" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="down press instance 10002" x="913" y="3" width="150" height="146" frameX="-0" frameY="-0" frameWidth="150" frameHeight="146"/>
+	<SubTexture name="left press instance 10002" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="up press instance 10000" x="912" y="310" width="144" height="141" frameX="-6" frameY="-5" frameWidth="154" frameHeight="151"/>
+	<SubTexture name="down press instance 10000" x="904" y="457" width="143" height="139" frameX="-4" frameY="-3" frameWidth="150" frameHeight="146"/>
+	<SubTexture name="left press instance 10000" x="904" y="602" width="139" height="142" frameX="-4" frameY="-3" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="right press instance 10000" x="876" y="750" width="138" height="141" frameX="-3" frameY="-8" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="blue hold end instance 10000" x="167" y="698" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
+	<SubTexture name="green hold end instance 10000" x="167" y="768" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
+	<SubTexture name="pruple end hold instance 10000" x="326" y="858" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
+	<SubTexture name="red hold end instance 10000" x="326" y="928" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
+	<SubTexture name="blue hold piece instance 10000" x="864" y="897" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
+	<SubTexture name="green hold piece instance 10000" x="864" y="947" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
+	<SubTexture name="purple hold piece instance 10000" x="921" y="897" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
+	<SubTexture name="red hold piece instance 10000" x="921" y="947" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
+	<SubTexture name="down confirm instance 10003" x="696" y="222" width="210" height="211" frameX="-8" frameY="-13" frameWidth="240" frameHeight="236"/>
+	<SubTexture name="down press instance 10001" x="904" y="457" width="143" height="139" frameX="-4" frameY="-3" frameWidth="150" frameHeight="146"/>
+	<SubTexture name="down press instance 10003" x="913" y="3" width="150" height="146" frameX="-0" frameY="-0" frameWidth="150" frameHeight="146"/>
+	<SubTexture name="left confirm instance 10003" x="469" y="238" width="218" height="217" frameX="-4" frameY="-4" frameWidth="230" frameHeight="232"/>
+	<SubTexture name="left press instance 10001" x="904" y="602" width="139" height="142" frameX="-4" frameY="-3" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10003" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10004" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10005" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10006" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10007" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10008" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10009" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10010" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10011" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10012" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10013" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10014" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10015" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10016" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10017" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10018" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="left press instance 10019" x="913" y="155" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
+	<SubTexture name="right confirm instance 10003" x="469" y="461" width="218" height="218" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+	<SubTexture name="right press instance 10001" x="876" y="750" width="138" height="141" frameX="-3" frameY="-8" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10003" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10004" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10005" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10006" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10007" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10008" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10009" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10010" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10011" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10012" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10013" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10014" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10015" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10016" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10017" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10018" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10019" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10020" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10021" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10022" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10023" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10024" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10025" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="right press instance 10026" x="710" y="848" width="148" height="151" frameX="-0" frameY="-1" frameWidth="149" frameHeight="152"/>
+	<SubTexture name="up confirm instance 10003" x="693" y="439" width="205" height="204" frameX="-15" frameY="-13" frameWidth="238" frameHeight="234"/>
+	<SubTexture name="up press instance 10001" x="912" y="310" width="144" height="141" frameX="-6" frameY="-5" frameWidth="154" frameHeight="151"/>
+	<SubTexture name="up press instance 10003" x="166" y="858" width="154" height="150" frameX="-0" frameY="-1" frameWidth="154" frameHeight="151"/>
+</TextureAtlas>
