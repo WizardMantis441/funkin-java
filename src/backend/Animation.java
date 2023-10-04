@@ -1,6 +1,8 @@
 package src.backend;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xml.sax.SAXException;
 
@@ -10,7 +12,7 @@ public class Animation {
     public boolean loop = false;
     public int[] indices = {};
 
-    public Frame[] frames;
+    public List<Frame> frames = new ArrayList<Frame>();
     private int curFrame = 0;
     
     public Animation(String imagePath, String animationPrefix) throws NumberFormatException, SAXException, IOException {
@@ -26,19 +28,10 @@ public class Animation {
         int frameWidth = Integer.parseInt(XmlParser.parse(imagePath, "frameWidth"));
         int frameHeight = Integer.parseInt(XmlParser.parse(imagePath, "frameHeight"));
 
-
         Frame tempFrame = new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight);
         
-        frames = push(frames, tempFrame);
+        frames.add(tempFrame);
         
-    }
-
-    private static String[] push(String[] array, String push) {
-        String[] longer = new String[array.length + 1];
-        for (int i = 0; i < array.length; i++)
-            longer[i] = array[i];
-        longer[array.length] = push;
-        return longer;
     }
 
     // https://docs.oracle.com/javase/tutorial/2d/advanced/clipping.html
