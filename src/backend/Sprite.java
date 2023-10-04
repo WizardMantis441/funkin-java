@@ -8,9 +8,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Element;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 
 public class Sprite extends JPanel {
@@ -25,7 +33,9 @@ public class Sprite extends JPanel {
     private double scaleX = 1.0;
     private double scaleY = 1.0;
     
-    private String curAnim = null;
+    private Animation curAnim = null;
+
+    private Frame frame;
 
     public Sprite(double x, double y, String path) {
         this.x = x;
@@ -38,6 +48,10 @@ public class Sprite extends JPanel {
 
     public void update(double elapsed) {
         // penis
+        if(curAnim != null) {
+            curAnim.update(elapsed);
+            frame = curAnim.frames.get(curAnim.curFrame);
+        }
     }
 
     private void loadImage(String path) {
@@ -49,19 +63,75 @@ public class Sprite extends JPanel {
         }
     }
 
-    public void addAnim(String animName, String animPrefix) throws NumberFormatException, SAXException, IOException {
+    /*public void addAnim(String animName, String animPrefix) {
         Animation newAnim = new Animation(this.imagePath, animPrefix);
         newAnim.fps = 24;
         newAnim.loop = false;
 
         anims.put(animName, newAnim);
+    }*/
+
+    public void addAnim(String animName, String animPrefix) {
+        ArrayList<Frame> frames = new ArrayList<Frame>();
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder db = dbf.newDocumentBuilder(); // my hatred for xml grows.
+            File file = new File(this.imagePath.replace(".png", ".xml"));
+            Document xml = db.parse(file);
+            xml.getDocumentElement().normalize();
+            NodeList list = xml.getElementsByTagName("SubTexture");
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element e = (Element) node;
+
+                    if(!e.getAttribute("name").startsWith(animPrefix)) {
+                        continue;
+                    }
+
+                    Frame frame = new Frame(
+                        Integer.parseInt(e.getAttribute("x")),
+                        Integer.parseInt(e.getAttribute("y")),
+                        Integer.parseInt(e.getAttribute("width")),
+                        Integer.parseInt(e.getAttribute("height")),
+                        Integer.parseInt(e.getAttribute("frameX")),
+                        Integer.parseInt(e.getAttribute("frameY")),
+                        Integer.parseInt(e.getAttribute("frameWidth")),
+                        Integer.parseInt(e.getAttribute("frameHeight"))
+                    );
+
+                    System.out.println(e.getAttribute("name"));
+
+                    frames.add(frame);
+                }
+            }
+        } catch(NumberFormatException | SAXException | IOException | ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+
+        // TODO: sorting
+
+        //file.close();
+
+        Animation newAnim = new Animation(this.imagePath, animPrefix, frames);
+        newAnim.fps = 24;
+        newAnim.looped = true;
+
+        if (frame == null) {
+            frame = frames.get(0);
+        }
+
+        anims.put(animName, newAnim);
     }
 
     public void playAnim(String animName) {
-        if (anims.containsKey(animName)) // look at me being so cautious :)
-            curAnim = animName;
-        else
-            System.out.println(animName + " IS NOT AN ANIMATION YOU TWAT!!!");
+        if (anims.containsKey(animName)) {// look at me being so cautious :)
+            curAnim = anims.get(animName);
+            curAnim.play();
+        }else
+            System.out.println(animName + " IS NOT AN ANIMATION YOU GAY TWAT!!!");
     }
 
     public void setScale(double scaleX, double scaleY) {
@@ -69,7 +139,7 @@ public class Sprite extends JPanel {
         this.scaleY = scaleY;
         
         this.setBounds((int) (x), (int) (y), (int) (image.getWidth() * scaleX), (int) (image.getHeight() * scaleY));
-        this.draw();
+        //this.draw();
     }
 
     public BufferedImage getImage() { return image; }
@@ -84,35 +154,33 @@ public class Sprite extends JPanel {
         this.y = y;
     }
 
-    @Override
+    /*@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = (int) (image.getWidth() * scaleX);
         int height = (int) (image.getHeight() * scaleY);
 
-        if (curAnim == null) {
+        if (frame == null) {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
-            Frame infoFrame = anims.get(curAnim).tempFrame;
-            // x = x
-            // y = y
-            // width = x + frameX
-            // height = y + frameY
-
-            g.setClip(0, 0, width / 2, height / 2);
+            System.out.println(frame);
+            g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
             g.drawImage(image, 0, 0, width, height, null);
         }
+    }*/
 
-        // if (anims.isEmpty()) {
-            // g.drawImage(image, 0, 0, width, height, null);
-        // } else {
-            // int xPos = anims.get(curAnim)._x;
-            // int yPos = anims.get(curAnim)._x;
+    public void draw(Graphics g) {
+        int width = (int) (image.getWidth() * scaleX);
+        int height = (int) (image.getHeight() * scaleY);
 
-        // }
-    }
-
-    public void draw() {
-        repaint();
+        if (frame == null) {
+            g.drawImage(image, 0, 0, width, height, null);
+        } else {
+            System.out.println(frame);
+            g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
+            g.drawImage(image, (int)x, (int)y, width, height, null);
+        }
     }
 }

@@ -1,7 +1,6 @@
 package src.backend;
 
 public class Frame {
-    public String name;
     public int x;
     public int y;
     public int width;
@@ -19,6 +18,6 @@ public class Frame {
         this.frameX = frameX;
         this.frameY = frameY;
         this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight ;        
+        this.frameHeight = frameHeight;        
     }
 }

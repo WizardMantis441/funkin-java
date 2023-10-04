@@ -1,39 +1,65 @@
 package src.backend;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xml.sax.SAXException;
-
 public class Animation {
+    public String imagePath;
     public String animPrefix;
-    public int fps = 24;
-    public boolean loop = false;
-    public int[] indices = {};
+    public float fps = 24;
 
     public List<Frame> frames = new ArrayList<Frame>();
-    private int curFrame = 0;
+    private float _frameTimer = 0;
+    private int numFrames;
+    public int curFrame = 0;
     
-    public Animation(String imagePath, String animationPrefix) throws NumberFormatException, SAXException, IOException {
-        animPrefix = animationPrefix;
+    public boolean finished = false;
+    public boolean paused = false;
+    public boolean looped = false;
+    
+    public Animation(String imagePath, String animationPrefix, List<Frame> frames) {
+        this.imagePath = imagePath;
+        this.animPrefix = animationPrefix;
+        this.frames = frames;
 
-        // temp frame test
-        int x = Integer.parseInt(XmlParser.parse(imagePath, "x"));
-        int y = Integer.parseInt(XmlParser.parse(imagePath, "y"));
-        int width = Integer.parseInt(XmlParser.parse(imagePath, "width"));
-        int height = Integer.parseInt(XmlParser.parse(imagePath, "height"));
-        int frameX = Integer.parseInt(XmlParser.parse(imagePath, "frameX"));
-        int frameY = Integer.parseInt(XmlParser.parse(imagePath, "frameY"));
-        int frameWidth = Integer.parseInt(XmlParser.parse(imagePath, "frameWidth"));
-        int frameHeight = Integer.parseInt(XmlParser.parse(imagePath, "frameHeight"));
-
-        Frame tempFrame = new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight);
-        
-        frames.add(tempFrame);
-        
+        this.numFrames = frames.size();
     }
 
-    // https://docs.oracle.com/javase/tutorial/2d/advanced/clipping.html
-	// <SubTexture name="up press instance 10003" x="166" y="858" width="154" height="150" frameX="-0" frameY="-1" frameWidth="154" frameHeight="151"/>
+    public void play() {
+        curFrame = 0;
+        _frameTimer = 0;
+        paused = false;
+        finished = false;
+    }
+
+    public void update(double elapsed) {
+        Float delay = getDelay();
+        //System.out.println(delay);
+        //System.out.println(finished);
+        //System.out.println(paused);
+        //System.out.println(_frameTimer);
+        //System.out.println(elapsed);
+        //System.out.println(curFrame);
+		if (delay == 0 || finished || paused)
+			return;
+
+		_frameTimer += elapsed;
+
+		while (_frameTimer > delay && !finished) {
+			_frameTimer -= delay;
+            if (looped && curFrame == numFrames - 1)
+                curFrame = 0;
+            else {
+                curFrame++;
+                if(curFrame == numFrames) {
+                    curFrame--;
+                    finished = true;
+                }
+            }
+		}
+	}
+
+    public float getDelay() {
+        return 1 / fps;
+    }
 }

@@ -2,6 +2,7 @@ package src.backend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Graphics;
 
 public class State {
     public List<Sprite> sprites = new ArrayList<Sprite>();
@@ -31,8 +32,14 @@ public class State {
         // sprite rendering + update function
         for (int i = 0; i < sprites.size(); i++) {
             Sprite spr = sprites.get(i);
-            spr.draw();
             spr.update(elapsed);
+        }
+    }
+
+    public void draw(Graphics g) {
+        for (int i = 0; i < sprites.size(); i++) {
+            Sprite spr = sprites.get(i);
+            spr.draw(g);
         }
     }
 }

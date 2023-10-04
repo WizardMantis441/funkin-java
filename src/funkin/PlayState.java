@@ -15,11 +15,13 @@ public class PlayState extends State {
         // sprite.setScale(0.7, 0.7);
         // add(sprite);
         
-        spriteBetter = new Sprite(100, 100, "images/note_assets.png");
-        spriteBetter.setScale(0.7, 0.7);
-        // spriteBetter.addAnim("it", new Animation("arrow static instance 2"));
-        // spriteBetter.playAnim("it");
+        spriteBetter = new Sprite(250, 250, "images/note_assets.png");
+        spriteBetter.setScale(0.3, 0.3);
+        //spriteBetter.addAnim("it", "left press instance 1");
+        spriteBetter.addAnim("it", "");
+        spriteBetter.playAnim("it");
         add(spriteBetter);
+        System.out.println("i made it :)");
 
         // XmlParser.parse("images/note_assets.xml");
     }
