@@ -23,12 +23,15 @@ public class State {
     }
 
     public void create() {
-        // hhayuj penis
+        // setup function
     }
 
     public void update(double elapsed) {
+
+        // sprite rendering + update function
         for (int i = 0; i < sprites.size(); i++) {
             Sprite spr = sprites.get(i);
+            spr.draw();
             spr.update(elapsed);
         }
     }

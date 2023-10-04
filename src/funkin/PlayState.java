@@ -3,6 +3,8 @@ package src.funkin;
 import src.backend.*;
 
 public class PlayState extends State {
+    private static Sprite spriteBetter = null;
+
     public void create() {
         super.create();
 
@@ -13,7 +15,7 @@ public class PlayState extends State {
         // sprite.setScale(0.7, 0.7);
         // add(sprite);
         
-        Sprite spriteBetter = new Sprite(100, 100, "images/note_assets.png");
+        spriteBetter = new Sprite(100, 100, "images/note_assets.png");
         spriteBetter.setScale(0.7, 0.7);
         // spriteBetter.addAnim("it", new Animation("arrow static instance 2"));
         // spriteBetter.playAnim("it");

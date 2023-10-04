@@ -7,6 +7,7 @@ public class Animation {
     public int[] indices = {};
 
     public Frame[] frames;
+    private int curFrame = 0;
     
     public Animation(String animationPrefix) {
         animPrefix = animationPrefix;

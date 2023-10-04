@@ -21,7 +21,6 @@ public class Sprite extends JPanel {
     private double scaleY = 1.0;
     
     private String curAnim = null;
-    private int curFrame = 0;
 
     public Sprite(double x, double y, String path) {
         this.x = x;
@@ -38,7 +37,7 @@ public class Sprite extends JPanel {
     private void loadImage(String path) {
         try {
             image = ImageIO.read(new File(path));
-            this.setBounds((int) (x), (int) (y), image.getWidth(), image.getHeight());
+            this.setLocation((int) x, (int) y);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,6 +50,8 @@ public class Sprite extends JPanel {
     public void playAnim(String animName) {
         if (anims.containsKey(animName)) // look at me being so cautious :)
             curAnim = animName;
+        else
+            System.out.println(animName + " IS NOT AN ANIMATION YOU TWAT!!!");
     }
 
     public void setScale(double scaleX, double scaleY) {
@@ -58,7 +59,7 @@ public class Sprite extends JPanel {
         this.scaleY = scaleY;
         
         this.setBounds((int) (x), (int) (y), (int) (image.getWidth() * scaleX), (int) (image.getHeight() * scaleY));
-        this.render();
+        this.draw();
     }
 
     public BufferedImage getImage() { return image; }
@@ -79,18 +80,28 @@ public class Sprite extends JPanel {
         int width = (int) (image.getWidth() * scaleX);
         int height = (int) (image.getHeight() * scaleY);
 
+        if (curAnim == null) {
+            g.drawImage(image, 0, 0, width, height, null);
+        } else {
+            // x = x
+            // y = y
+            // width = x + frameX
+            // height = y + frameY
+
+            g.setClip(0, 0, width / 2, height / 2);
+            g.drawImage(image, 0, 0, width, height, null);
+        }
+
         // if (anims.isEmpty()) {
             // g.drawImage(image, 0, 0, width, height, null);
         // } else {
             // int xPos = anims.get(curAnim)._x;
             // int yPos = anims.get(curAnim)._x;
 
-            g.setClip(0, 0, width / 2, height / 2);
-            g.drawImage(image, 0, 0, width, height, null);
         // }
     }
 
-    public void render() {
+    public void draw() {
         repaint();
     }
 }
