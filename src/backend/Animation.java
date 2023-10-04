@@ -25,7 +25,20 @@ public class Animation {
         int frameY = Integer.parseInt(XmlParser.parse(imagePath, "frameY"));
         int frameWidth = Integer.parseInt(XmlParser.parse(imagePath, "frameWidth"));
         int frameHeight = Integer.parseInt(XmlParser.parse(imagePath, "frameHeight"));
+
+
         Frame tempFrame = new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight);
+        
+        frames = push(frames, tempFrame);
+        
+    }
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
     }
 
     // https://docs.oracle.com/javase/tutorial/2d/advanced/clipping.html

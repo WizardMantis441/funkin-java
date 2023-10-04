@@ -1,6 +1,9 @@
 package src.backend;
 
 import javax.swing.*;
+
+import org.xml.sax.SAXException;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,7 +49,7 @@ public class Sprite extends JPanel {
         }
     }
 
-    public void addAnim(String animName, String animPrefix) {
+    public void addAnim(String animName, String animPrefix) throws NumberFormatException, SAXException, IOException {
         Animation newAnim = new Animation(this.imagePath, animPrefix);
         newAnim.fps = 24;
         newAnim.loop = false;
@@ -90,6 +93,7 @@ public class Sprite extends JPanel {
         if (curAnim == null) {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
+            Frame infoFrame = anims.get(curAnim).tempFrame;
             // x = x
             // y = y
             // width = x + frameX
