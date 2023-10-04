@@ -15,6 +15,8 @@ public class Sprite extends JPanel {
     private double y;
 
     private BufferedImage image;
+    private String imagePath;
+
     private Map<String, Animation> anims; // note: if no anims, assume it's not a spritesheet
 
     private double scaleX = 1.0;
@@ -25,8 +27,9 @@ public class Sprite extends JPanel {
     public Sprite(double x, double y, String path) {
         this.x = x;
         this.y = y;
+        this.imagePath = path;
 
-        loadImage(path);
+        loadImage(imagePath);
         anims = new HashMap<>();
     }
 
@@ -43,8 +46,12 @@ public class Sprite extends JPanel {
         }
     }
 
-    public void addAnim(String animName, Animation anim) {
-        anims.put(animName, anim);
+    public void addAnim(String animName, String animPrefix) {
+        Animation newAnim = new Animation(this.imagePath, animPrefix);
+        newAnim.fps = 24;
+        newAnim.loop = false;
+
+        anims.put(animName, newAnim);
     }
 
     public void playAnim(String animName) {
