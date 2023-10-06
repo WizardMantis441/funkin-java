@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
@@ -48,10 +47,11 @@ public class Sprite extends JPanel {
 
     public void update(double elapsed) {
         // penis
-        if(curAnim != null) {
-            curAnim.update(elapsed);
-            frame = curAnim.frames.get(curAnim.curFrame);
-        }
+        this.repaint();
+        // if (curAnim != null) {
+        //     curAnim.update(elapsed);
+        //     frame = curAnim.frames.get(curAnim.curFrame);
+        // }
     }
 
     private void loadImage(String path) {
@@ -62,14 +62,6 @@ public class Sprite extends JPanel {
             e.printStackTrace();
         }
     }
-
-    /*public void addAnim(String animName, String animPrefix) {
-        Animation newAnim = new Animation(this.imagePath, animPrefix);
-        newAnim.fps = 24;
-        newAnim.loop = false;
-
-        anims.put(animName, newAnim);
-    }*/
 
     public void addAnim(String animName, String animPrefix) {
         ArrayList<Frame> frames = new ArrayList<Frame>();
@@ -87,7 +79,7 @@ public class Sprite extends JPanel {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element e = (Element) node;
 
-                    if(!e.getAttribute("name").startsWith(animPrefix)) {
+                    if (!e.getAttribute("name").startsWith(animPrefix)) {
                         continue;
                     }
 
@@ -102,8 +94,6 @@ public class Sprite extends JPanel {
                         Integer.parseInt(e.getAttribute("frameHeight"))
                     );
 
-                    System.out.println(e.getAttribute("name"));
-
                     frames.add(frame);
                 }
             }
@@ -112,8 +102,6 @@ public class Sprite extends JPanel {
         }
 
         // TODO: sorting
-
-        //file.close();
 
         Animation newAnim = new Animation(this.imagePath, animPrefix, frames);
         newAnim.fps = 24;
@@ -127,10 +115,10 @@ public class Sprite extends JPanel {
     }
 
     public void playAnim(String animName) {
-        if (anims.containsKey(animName)) {// look at me being so cautious :)
+        if (anims.containsKey(animName)) { // look at me being so cautious :)
             curAnim = anims.get(animName);
             curAnim.play();
-        }else
+        } else
             System.out.println(animName + " IS NOT AN ANIMATION YOU GAY TWAT!!!");
     }
 
@@ -138,7 +126,6 @@ public class Sprite extends JPanel {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
         
-        this.setBounds((int) (x), (int) (y), (int) (image.getWidth() * scaleX), (int) (image.getHeight() * scaleY));
         //this.draw();
     }
 
@@ -154,7 +141,7 @@ public class Sprite extends JPanel {
         this.y = y;
     }
 
-    /*@Override
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = (int) (image.getWidth() * scaleX);
@@ -164,11 +151,11 @@ public class Sprite extends JPanel {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
             System.out.println(frame);
-            g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            // g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
             //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
             g.drawImage(image, 0, 0, width, height, null);
         }
-    }*/
+    }
 
     public void draw(Graphics g) {
         int width = (int) (image.getWidth() * scaleX);
@@ -177,10 +164,17 @@ public class Sprite extends JPanel {
         if (frame == null) {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
-            System.out.println(frame);
-            g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            //<SubTexture name="right confirm instance 10000" x="230" y="470" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+            // frame = new Frame(230, 470, 217, 219, -3, -4, 228, 231);
+            // Area outside = new Area(new Rectangle2D.Double(x + frame.x, y + frame.y, frame.width * scaleX, frame.height * scaleY));
+            //System.out.println(frame);
+            //g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            //g.setClip((int)x, (int)y, (int) (229 * scaleX), (int) (229 * scaleY));
+            //g.setClip((int)(x), (int) (y), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+            // g.setClip(outside);
             //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
-            g.drawImage(image, (int)x, (int)y, width, height, null);
+            //g.drawImage(image, (int)(x - frame.x), (int)(y - frame.y), width, height, null);
+            g.drawImage(image, 0, 0, width, height, null);
         }
     }
 }

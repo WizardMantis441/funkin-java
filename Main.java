@@ -1,23 +1,49 @@
-import java.io.IOException;
-
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.JFrame;
-import java.awt.Color;
-
-import org.xml.sax.SAXException;
-
 import src.backend.*;
-import src.funkin.PlayState;
-
-import java.awt.image.BufferStrategy;
+import src.funkin.*;
 
 public class Main {
-   public static void main(String[] args) throws SAXException, IOException, InterruptedException {
-      new GameCanvas();
+   public static void main(String[] args) {
+      Game.window = new JFrame("Friday Night Funkin' - Java Edition");
+      Game.window.setLayout(null);
+      Game.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      Game.window.setResizable(false);
+      Game.window.setSize(1280, 720);
+      Game.window.setVisible(true);
+
+      Game.state = new PlayState();
+      Game.state.create();
+
+      // UPDATE FUNCTION
+
+      double uInterval = 1000.0 / 120; // 120 fps
+      double nextUTime = System.currentTimeMillis() + uInterval;
+
+      while (true) {
+          double curTime = System.currentTimeMillis();
+
+          if (curTime >= nextUTime) {
+              update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
+              nextUTime += uInterval;
+          }
+
+          try { // bc i don't wanna overrun the loop lmao
+              Thread.sleep(1);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+      }
+   }
+
+   public static void update(double elapsed) {
+      if (Game.state == null) return; // l bozo
+      Game.state.update(elapsed);
    }
 }
+
+/*
+
+   neo's graveyard
 
 class Window
 {
@@ -46,7 +72,7 @@ class GameCanvas extends Canvas implements Runnable {
    private Thread thread;
 
    public GameCanvas() {
-      /*Window window = */new Window (1280, 720, "Friday Night Funkin' - Java Edition", this);
+      Window window = new Window (1280, 720, "Friday Night Funkin' - Java Edition", this);
 
       thread = new Thread (this);
       thread.start ();
@@ -104,4 +130,4 @@ class GameCanvas extends Canvas implements Runnable {
    }
 
    public static long lastTime = 0;
-}
+}*/
