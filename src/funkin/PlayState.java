@@ -11,11 +11,12 @@ public class PlayState extends State {
         // StrumLine cpuStrums = new StrumLine(window, 0.25, true);
         // StrumLine playerStrums = new StrumLine(window, 0.75, false);
 
-        Sprite sprite = new Sprite(250, 250, "images/note_assets.png");
+        Sprite sprite = new Sprite(300, 0, "images/note_assets.png");
+        sprite.setScale(0.5, 0.5);
+        //sprite.addAnim("it", "left press instance 1");
+        sprite.addAnim("it", "");
+        sprite.playAnim("it");
         add(sprite);
-        // sprite.setScale(0.3, 0.3);
-        // sprite.addAnim("it", "left press instance 1");
-        // sprite.playAnim("it");
 
         System.out.println("made it :)");
     }

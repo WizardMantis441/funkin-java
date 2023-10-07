@@ -1,10 +1,18 @@
 import javax.swing.JFrame;
 import src.backend.*;
 import src.funkin.*;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.image.BufferStrategy;
 
 public class Main {
    public static void main(String[] args) {
+      GameCanvas canvas = new GameCanvas(1280, 720);
       Game.window = new JFrame("Friday Night Funkin' - Java Edition");
+      Game.window.add(canvas);
+      Game.window.pack();
       Game.window.setLayout(null);
       Game.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       Game.window.setResizable(false);
@@ -23,9 +31,11 @@ public class Main {
          double curTime = System.currentTimeMillis();
 
          if (curTime >= nextUTime) {
-            update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
+            canvas.update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
             nextUTime += uInterval;
          }
+
+         canvas.draw();
 
          try { // bc i don't wanna overrun the loop lmao
             Thread.sleep(1);
@@ -34,57 +44,23 @@ public class Main {
          }
       }
    }
-
-   public static void update(double elapsed) {
-      if (Game.state != null)
-         Game.state.update(elapsed);
-   }
-}
-
-/*
-
-   neo's graveyard
-
-class Window
-{
-   public Window (int width, int height, String title, GameCanvas game) {
-      game.setPreferredSize(new Dimension (width, height));
-      game.setMaximumSize(new Dimension (width, height));
-      game.setMinimumSize(new Dimension (width, height));
-
-      JFrame frame = new JFrame (title);
-      frame.add (game);
-      frame.pack ();
-      frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-      frame.setResizable (false);
-      frame.setLocationRelativeTo (null);
-      frame.setVisible (true);
-
-      Game.window = frame;
-
-      Game.state = new PlayState();
-      Game.state.create();
-   }
 }
 
 class GameCanvas extends Canvas implements Runnable {
-   public boolean running = true;
-   private Thread thread;
-
-   public GameCanvas() {
-      Window window = new Window (1280, 720, "Friday Night Funkin' - Java Edition", this);
-
-      thread = new Thread (this);
-      thread.start ();
+   public GameCanvas(int width, int height) {
+      setPreferredSize(new Dimension (width, height));
+      setMaximumSize(new Dimension (width, height));
+      setMinimumSize(new Dimension (width, height));
    }
-   
+
    @Override
    public void run() {
-      long lastTime = System.nanoTime();
-   
+      System.out.println("run");
+      /*long lastTime = System.nanoTime();
+
       double delta = 0;
-      
-      while (running) {
+
+      while (true) {
          long now = System.nanoTime();
          delta += (now - lastTime) / 1000000.0;
          lastTime = now;
@@ -99,12 +75,32 @@ class GameCanvas extends Canvas implements Runnable {
          if(shouldRender) {
             draw();
          }
-      }
+      }*/
+
+      /*double uInterval = 1000.0 / 120; // 120 fps
+      double nextUTime = System.currentTimeMillis() + uInterval;
+
+      while (true) {
+         double curTime = System.currentTimeMillis();
+
+         if (curTime >= nextUTime) {
+            update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
+            nextUTime += uInterval;
+         }
+
+         draw();
+
+         try { // bc i don't wanna overrun the loop lmao
+            Thread.sleep(1);
+         } catch (InterruptedException e) {
+            e.printStackTrace();
+         }
+      }*/
    }
 
    public void update(double elapsed) {
-      if (Game.state == null) return; // l bozo
-      Game.state.update(elapsed);
+      if (Game.state != null)
+         Game.state.update(elapsed);
    }
 
    public void draw() {
@@ -128,6 +124,27 @@ class GameCanvas extends Canvas implements Runnable {
       g.dispose ();
       bufferstrategy.show ();
    }
+}
 
-   public static long lastTime = 0;
+
+/*class Window
+{
+   public Window (int width, int height, String title, GameCanvas game) {
+      game.setPreferredSize(new Dimension (width, height));
+      game.setMaximumSize(new Dimension (width, height));
+      game.setMinimumSize(new Dimension (width, height));
+
+      JFrame frame = new JFrame (title);
+      frame.add (game);
+      frame.pack ();
+      frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+      frame.setResizable (false);
+      frame.setLocationRelativeTo (null);
+      frame.setVisible (true);
+
+      Game.window = frame;
+
+      Game.state = new PlayState();
+      Game.state.create();
+   }
 }*/

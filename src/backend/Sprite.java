@@ -21,169 +21,177 @@ import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 
 public class Sprite extends JPanel {
-    private double x;
-    private double y;
+	public double x;
+	public double y;
 
-    private BufferedImage image;
-    private String imagePath;
+	public double scaleX = 1.0;
+	public double scaleY = 1.0;
 
-    private Map<String, Animation> anims; // note: if no anims, assume it's not a spritesheet
+	private BufferedImage image;
+	private String imagePath;
 
-    private double scaleX = 1.0;
-    private double scaleY = 1.0;
-    
-    private Animation curAnim = null;
+	// Animations
+	private Map<String, Animation> anims; // note: if no anims, assume it's not a spritesheet
+	private Animation curAnim = null;
+	private Frame frame;
 
-    private Frame frame;
+	public Sprite(double x, double y, String path) {
+		this.x = x;
+		this.y = y;
+		this.imagePath = path;
 
-    public Sprite(double x, double y, String path) {
-        this.x = x;
-        this.y = y;
-        this.imagePath = path;
+		loadImage(imagePath);
+		anims = new HashMap<>();
+	}
 
-        loadImage(imagePath);
-        anims = new HashMap<>();
-    }
+	public void update(double elapsed) {
+		// penis
+		//this.repaint();
+		System.out.println("update");
+		if (curAnim != null) {
+			curAnim.update(elapsed);
+			frame = curAnim.frames.get(curAnim.curFrame);
+		}
+	}
 
-    public void update(double elapsed) {
-        // penis
-        this.repaint();
-        // if (curAnim != null) {
-        //     curAnim.update(elapsed);
-        //     frame = curAnim.frames.get(curAnim.curFrame);
-        // }
-    }
+	private void loadImage(String path) {
+		try {
+			image = ImageIO.read(new File(path));
+			this.setLocation((int) x, (int) y);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    private void loadImage(String path) {
-        try {
-            image = ImageIO.read(new File(path));
-            this.setLocation((int) x, (int) y);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void addAnim(String animName, String animPrefix) {
+		ArrayList<Frame> frames = new ArrayList<Frame>();
 
-    public void addAnim(String animName, String animPrefix) {
-        ArrayList<Frame> frames = new ArrayList<Frame>();
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder(); // my hatred for xml grows.
+			File file = new File(this.imagePath.replace(".png", ".xml"));
+			Document xml = db.parse(file);
+			xml.getDocumentElement().normalize();
+			NodeList list = xml.getElementsByTagName("SubTexture");
+			for (int i = 0; i < list.getLength(); i++) {
+				Node node = list.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element e = (Element) node;
 
-        try {
-            DocumentBuilder db = dbf.newDocumentBuilder(); // my hatred for xml grows.
-            File file = new File(this.imagePath.replace(".png", ".xml"));
-            Document xml = db.parse(file);
-            xml.getDocumentElement().normalize();
-            NodeList list = xml.getElementsByTagName("SubTexture");
-            for (int i = 0; i < list.getLength(); i++) {
-                Node node = list.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element e = (Element) node;
+					if (!e.getAttribute("name").startsWith(animPrefix)) {
+						continue;
+					}
 
-                    if (!e.getAttribute("name").startsWith(animPrefix)) {
-                        continue;
-                    }
+					Frame frame = new Frame(
+						Integer.parseInt(e.getAttribute("x")),
+						Integer.parseInt(e.getAttribute("y")),
+						Integer.parseInt(e.getAttribute("width")),
+						Integer.parseInt(e.getAttribute("height")),
+						Integer.parseInt(e.getAttribute("frameX")),
+						Integer.parseInt(e.getAttribute("frameY")),
+						Integer.parseInt(e.getAttribute("frameWidth")),
+						Integer.parseInt(e.getAttribute("frameHeight"))
+					);
 
-                    Frame frame = new Frame(
-                        Integer.parseInt(e.getAttribute("x")),
-                        Integer.parseInt(e.getAttribute("y")),
-                        Integer.parseInt(e.getAttribute("width")),
-                        Integer.parseInt(e.getAttribute("height")),
-                        Integer.parseInt(e.getAttribute("frameX")),
-                        Integer.parseInt(e.getAttribute("frameY")),
-                        Integer.parseInt(e.getAttribute("frameWidth")),
-                        Integer.parseInt(e.getAttribute("frameHeight"))
-                    );
+					frames.add(frame);
+				}
+			}
+		} catch(NumberFormatException | SAXException | IOException | ParserConfigurationException e) {
+			e.printStackTrace();
+		}
 
-                    frames.add(frame);
-                }
-            }
-        } catch(NumberFormatException | SAXException | IOException | ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+		// TODO: sorting
 
-        // TODO: sorting
+		Animation newAnim = new Animation(this.imagePath, animPrefix, frames);
+		newAnim.fps = 24;
+		newAnim.looped = true;
 
-        Animation newAnim = new Animation(this.imagePath, animPrefix, frames);
-        newAnim.fps = 24;
-        newAnim.looped = true;
+		if (frame == null) {
+			frame = frames.get(0);
+		}
 
-        if (frame == null) {
-            frame = frames.get(0);
-        }
+		anims.put(animName, newAnim);
+	}
 
-        anims.put(animName, newAnim);
-    }
+	public void playAnim(String animName) {
+		if (!anims.containsKey(animName))
+			return;
 
-    public void playAnim(String animName) {
-        if (!anims.containsKey(animName)) 
-            return; 
-        
-        curAnim = anims.get(animName);
-        curAnim.play();
-        
-    }
+		curAnim = anims.get(animName);
+		curAnim.play();
+	}
 
-    public void setScale(double scaleX, double scaleY) {
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-    }
+	public void setScale(double scaleX, double scaleY) {
+		this.scaleX = scaleX;
+		this.scaleY = scaleY;
+	}
 
-    public BufferedImage getImage() { return image; }
+	public BufferedImage getImage() { return image; }
 
-    public double getX(double x) { return this.x; }
-    public double getY(double y) { return this.y; }
+	public double getX(double x) { return this.x; }
+	public double getY(double y) { return this.y; }
 
-    public void setX(double x) { this.x = x; }
-    public void setY(double y) { this.y = y; }
-    public void setPosition(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+	public void setX(double x) { this.x = x; }
+	public void setY(double y) { this.y = y; }
+	public void setPosition(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int width = (int) (image.getWidth() * scaleX);
-        int height = (int) (image.getHeight() * scaleY);
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int width = (int) (image.getWidth() * scaleX);
+		int height = (int) (image.getHeight() * scaleY);
 
-        g.drawImage(image, 0, 0, width, height, null);
+		g.drawImage(image, 0, 0, width, height, null);
 
-        /*
-        if (frame == null) {
-            g.drawImage(image, 0, 0, width, height, null);
-        } else {
-            System.out.println(frame);
-            // g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-            //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
-            g.drawImage(image, 0, 0, width, height, null);
-        }
-        */
-        
-    }
+		/*
+		if (frame == null) {
+			g.drawImage(image, 0, 0, width, height, null);
+		} else {
+			System.out.println(frame);
+			// g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+			//g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
+			g.drawImage(image, 0, 0, width, height, null);
+		}
+		*/
+		
+	}
 
-    public void draw(Graphics g) {
-        int width = (int) (image.getWidth() * scaleX);
-        int height = (int) (image.getHeight() * scaleY);
+	public void draw(Graphics g) {
+		int width = (int) (image.getWidth() * scaleX);
+		int height = (int) (image.getHeight() * scaleY);
 
-        g.drawImage(image, 0, 0, width, height, null);
-        
-        /*
-        if (frame == null) {
-            g.drawImage(image, 0, 0, width, height, null);
-        } else {
-            //<SubTexture name="right confirm instance 10000" x="230" y="470" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
-            // frame = new Frame(230, 470, 217, 219, -3, -4, 228, 231);
-            // Area outside = new Area(new Rectangle2D.Double(x + frame.x, y + frame.y, frame.width * scaleX, frame.height * scaleY));
-            //System.out.println(frame);
-            //g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-            //g.setClip((int)x, (int)y, (int) (229 * scaleX), (int) (229 * scaleY));
-            //g.setClip((int)(x), (int) (y), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-            // g.setClip(outside);
-            //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
-            //g.drawImage(image, (int)(x - frame.x), (int)(y - frame.y), width, height, null);
-            g.drawImage(image, 0, 0, width, height, null);
-        }
-        */
-        
-    }
+		System.out.println("draw");
+
+		//g.drawImage(image, 0, 0, width, height, null);
+		
+		
+		if (frame == null) {
+			g.drawImage(image, (int)x, (int)y, width, height, null);
+		} else {
+			//<SubTexture name="right confirm instance 10000" x="230" y="470" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
+			// frame = new Frame(230, 470, 217, 219, -3, -4, 228, 231);
+			//Area outside = new Area(new Rectangle2D.Double(x + frame.x, y + frame.y, frame.width * scaleX, frame.height * scaleY));
+			//System.out.println(frame);
+			//g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+			//g.setClip((int)x, (int)y, (int) (229 * scaleX), (int) (229 * scaleY));
+			//g.setClip((int)(x + frame.x * scaleX), (int) (y + frame.y * scaleY), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+			//g.setClip(outside);
+			//g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
+			//g.drawImage(image, (int)(x - frame.x * scaleX), (int)(y - frame.y * scaleY), width, height, null);
+			//g.drawImage(image, (int)(x - frame.x * scaleX), (int)(y), width, height, null);
+
+			double xx = x - frame.x * scaleX;
+			double yy = y - frame.y * scaleY;
+			
+			g.setClip((int)(xx + frame.x * scaleX), (int) (yy + frame.y * scaleY), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
+			g.drawImage(image, (int)(xx), (int)(yy), width, height, null);
+			//g.drawImage(image, 0, 0, width, height, null);
+		}
+		
+		
+	}
 }
