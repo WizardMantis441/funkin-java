@@ -54,7 +54,7 @@ public class Main {
 		double interval = 1f/120f;
 
 		while (true) {
-			if(canvas.paused) continue;
+			if (canvas.paused) continue;
 
 			//System.out.println("Start");
 			long now = System.nanoTime();

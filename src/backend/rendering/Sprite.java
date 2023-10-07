@@ -22,8 +22,9 @@ import javax.imageio.ImageIO;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Arrays;
+import src.backend.rendering.interfaces.Drawable;
 
-public class Sprite extends JPanel {
+public class Sprite extends JPanel implements Drawable {
 	public double x;
 	public double y;
 
