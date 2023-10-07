@@ -1,4 +1,4 @@
-package src.backend;
+package src.backend.rendering;
 
 import javax.swing.*;
 
@@ -19,6 +19,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Arrays;
 
 public class Sprite extends JPanel {
 	public double x;
@@ -47,7 +50,7 @@ public class Sprite extends JPanel {
 	public void update(double elapsed) {
 		// penis
 		//this.repaint();
-		System.out.println("update");
+		//System.out.println("update");
 		if (curAnim != null) {
 			curAnim.update(elapsed);
 			frame = curAnim.frames.get(curAnim.curFrame);
@@ -57,7 +60,7 @@ public class Sprite extends JPanel {
 	private void loadImage(String path) {
 		try {
 			image = ImageIO.read(new File(path));
-			this.setLocation((int) x, (int) y);
+			//this.setLocation((int) x, (int) y);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,6 +87,7 @@ public class Sprite extends JPanel {
 					}
 
 					Frame frame = new Frame(
+						e.getAttribute("name"),
 						Integer.parseInt(e.getAttribute("x")),
 						Integer.parseInt(e.getAttribute("y")),
 						Integer.parseInt(e.getAttribute("width")),
@@ -109,6 +113,12 @@ public class Sprite extends JPanel {
 
 		if (frame == null) {
 			frame = frames.get(0);
+		}
+
+		frames.sort(new FrameSortingComparator());
+
+		for (int index = 0; index < frames.size(); index++) {
+			System.out.println(frames.get(index).name);
 		}
 
 		anims.put(animName, newAnim);
@@ -164,34 +174,32 @@ public class Sprite extends JPanel {
 		int width = (int) (image.getWidth() * scaleX);
 		int height = (int) (image.getHeight() * scaleY);
 
-		System.out.println("draw");
+		//System.out.println("draw");
 
 		//g.drawImage(image, 0, 0, width, height, null);
-		
-		
+
 		if (frame == null) {
 			g.drawImage(image, (int)x, (int)y, width, height, null);
 		} else {
-			//<SubTexture name="right confirm instance 10000" x="230" y="470" width="217" height="219" frameX="-3" frameY="-4" frameWidth="228" frameHeight="231"/>
-			// frame = new Frame(230, 470, 217, 219, -3, -4, 228, 231);
-			//Area outside = new Area(new Rectangle2D.Double(x + frame.x, y + frame.y, frame.width * scaleX, frame.height * scaleY));
-			//System.out.println(frame);
-			//g.setClip(frame.x, frame.y, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-			//g.setClip((int)x, (int)y, (int) (229 * scaleX), (int) (229 * scaleY));
-			//g.setClip((int)(x + frame.x * scaleX), (int) (y + frame.y * scaleY), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-			//g.setClip(outside);
-			//g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
-			//g.drawImage(image, (int)(x - frame.x * scaleX), (int)(y - frame.y * scaleY), width, height, null);
-			//g.drawImage(image, (int)(x - frame.x * scaleX), (int)(y), width, height, null);
-
 			double xx = x - frame.x * scaleX;
 			double yy = y - frame.y * scaleY;
-			
+			xx -= frame.frameX * scaleX;
+			yy -= frame.frameY * scaleY;
+
 			g.setClip((int)(xx + frame.x * scaleX), (int) (yy + frame.y * scaleY), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
 			g.drawImage(image, (int)(xx), (int)(yy), width, height, null);
-			//g.drawImage(image, 0, 0, width, height, null);
 		}
-		
-		
 	}
+}
+
+class FrameSortingComparator implements Comparator<Frame> {
+    @Override
+    public int compare(Frame i1, Frame i2) {
+        return i1.name.compareTo(i2.name);
+    }
+    /*public static void main (String[] args) {
+          List<Integer> numbers = Arrays.asList(4, 2, 5, 1, 3);
+        numbers.sort(new IntegerDescendingComparator());
+        System.out.println(numbers); // [5, 4, 3, 2, 1]
+    }*/
 }

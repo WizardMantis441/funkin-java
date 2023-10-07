@@ -2,6 +2,9 @@ package src.backend;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import src.backend.rendering.Sprite;
+
 import java.awt.Graphics;
 
 public class State {

@@ -1,4 +1,4 @@
-package src.backend;
+package src.backend.rendering;
 
 import java.util.ArrayList;
 import java.util.List;

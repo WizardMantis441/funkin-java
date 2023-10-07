@@ -6,145 +6,141 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferStrategy;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class Main {
-   public static void main(String[] args) {
-      GameCanvas canvas = new GameCanvas(1280, 720);
-      Game.window = new JFrame("Friday Night Funkin' - Java Edition");
-      Game.window.add(canvas);
-      Game.window.pack();
-      Game.window.setLayout(null);
-      Game.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      Game.window.setResizable(false);
-      Game.window.setSize(1280, 720);
-      Game.window.setVisible(true);
+	public static void main(String[] args) {
+		GameCanvas canvas = new GameCanvas(1280, 720);
+		Game.window = new JFrame("Friday Night Funkin' - Java Edition");
+		Game.window.add(canvas);
+		Game.window.pack();
+		Game.window.setLayout(null);
+		Game.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Game.window.setResizable(false);
+		Game.window.setSize(1280, 720);
+		Game.window.setVisible(true);
 
-      Game.state = new PlayState();
-      Game.state.create();
+		Game.window.addKeyListener(canvas);
+		Game.window.setFocusable(true);
+		Game.window.setFocusTraversalKeysEnabled(false);
 
-      // UPDATE FUNCTION
+		Game.window.addWindowFocusListener( new WindowFocusListener() {
+        @Override
+        public void windowLostFocus(WindowEvent e) {
+            canvas.paused = true;
+        }
 
-      double uInterval = 1000.0 / 120; // 120 fps
-      double nextUTime = System.currentTimeMillis() + uInterval;
+        @Override
+        public void windowGainedFocus(WindowEvent e) {
+            canvas.paused = false;
+        }
+    });;
 
-      while (true) {
-         double curTime = System.currentTimeMillis();
+		Keys.init();
 
-         if (curTime >= nextUTime) {
-            canvas.update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
-            nextUTime += uInterval;
-         }
+		Game.state = new PlayState();
+		Game.state.create();
 
-         canvas.draw();
+		// UPDATE FUNCTION
 
-         try { // bc i don't wanna overrun the loop lmao
-            Thread.sleep(1);
-         } catch (InterruptedException e) {
-            e.printStackTrace();
-         }
-      }
-   }
+		//double uInterval =  / 120; // 120 fps
+		//double nextUTime = System.nanoTime() + uInterval;
+		double delta = 0;
+		double lastTime = System.nanoTime();
+		double interval = 1f/120f;
+
+		while (true) {
+			if(canvas.paused) continue;
+
+			//System.out.println("Start");
+			long now = System.nanoTime();
+			delta += (now - lastTime) / 100000000.0;
+			double elapsed = (now - lastTime) / 1000000.0;
+			lastTime = now;
+
+			/*while (delta >= interval) {
+				//elapsed = elapsed / 1000.0;
+				//System.out.println("Fps - " + (1000/elapsed));
+				Keys.update();
+				System.out.println("Elapsed - " + interval);
+				canvas.update(interval);
+
+				delta -= interval;
+			}*/
+
+			elapsed = elapsed / 1000.0;
+			//System.out.println("Fps - " + (1000/elapsed));
+			Keys.update();
+			//System.out.println("Elapsed - " + elapsed);
+			canvas.update(elapsed);
+
+			canvas.draw();
+
+			try { // bc i don't wanna overrun the loop lmao
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
-class GameCanvas extends Canvas implements Runnable {
-   public GameCanvas(int width, int height) {
-      setPreferredSize(new Dimension (width, height));
-      setMaximumSize(new Dimension (width, height));
-      setMinimumSize(new Dimension (width, height));
-   }
+class GameCanvas extends Canvas implements Runnable, KeyListener {
+	public boolean paused = false;
 
-   @Override
-   public void run() {
-      System.out.println("run");
-      /*long lastTime = System.nanoTime();
+	public GameCanvas(int width, int height) {
+		setPreferredSize(new Dimension (width, height));
+		setMaximumSize(new Dimension (width, height));
+		setMinimumSize(new Dimension (width, height));
+	}
 
-      double delta = 0;
+	@Override
+	public void run() { }
 
-      while (true) {
-         long now = System.nanoTime();
-         delta += (now - lastTime) / 1000000.0;
-         lastTime = now;
-         boolean shouldRender = true;
+	public void keyPressed(KeyEvent e) {
+		//Keys.keyDown(e);
+	}
 
-         while (delta >= 1f/60f) {
-            update(1f/60f);
-            delta -= 1f/60f;
-            shouldRender = true;
-         }
+	public void keyReleased(KeyEvent e) {
+		//Keys.keyReleased(e);
+	}
 
-         if(shouldRender) {
-            draw();
-         }
-      }*/
+	public void keyTyped(KeyEvent e) {
+		System.out.println("keyTyped");
+	}
 
-      /*double uInterval = 1000.0 / 120; // 120 fps
-      double nextUTime = System.currentTimeMillis() + uInterval;
+	public void update(double elapsed) {
+		if (Game.state != null)
+			Game.state.update(elapsed);
+	}
 
-      while (true) {
-         double curTime = System.currentTimeMillis();
+	public void draw() {
 
-         if (curTime >= nextUTime) {
-            update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
-            nextUTime += uInterval;
-         }
+		BufferStrategy bufferstrategy = getBufferStrategy ();
 
-         draw();
+		if (bufferstrategy == null) {
+			createBufferStrategy (3);
+			return;
+		}
 
-         try { // bc i don't wanna overrun the loop lmao
-            Thread.sleep(1);
-         } catch (InterruptedException e) {
-            e.printStackTrace();
-         }
-      }*/
-   }
+		Graphics g = bufferstrategy.getDrawGraphics();
 
-   public void update(double elapsed) {
-      if (Game.state != null)
-         Game.state.update(elapsed);
-   }
+		g.setColor (Color.white);
+		g.fillRect (0, 0, getWidth (), getHeight ());
 
-   public void draw() {
+		if (Game.state != null) {
+			Game.state.draw(g);
+		}
 
-      BufferStrategy bufferstrategy = getBufferStrategy ();
-
-      if (bufferstrategy == null) {
-         createBufferStrategy (3);
-         return;
-      }
-
-      Graphics g = bufferstrategy.getDrawGraphics();
-
-      g.setColor (Color.white);
-      g.fillRect (0, 0, getWidth (), getHeight ());
-
-      if (Game.state != null) {
-         Game.state.draw(g);
-      }
-
-      g.dispose ();
-      bufferstrategy.show ();
-   }
+		g.dispose ();
+		bufferstrategy.show ();
+	}
 }
 
+/*class KeyListenerJFrame extends JFrame implements KeyListener {
 
-/*class Window
-{
-   public Window (int width, int height, String title, GameCanvas game) {
-      game.setPreferredSize(new Dimension (width, height));
-      game.setMaximumSize(new Dimension (width, height));
-      game.setMinimumSize(new Dimension (width, height));
-
-      JFrame frame = new JFrame (title);
-      frame.add (game);
-      frame.pack ();
-      frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-      frame.setResizable (false);
-      frame.setLocationRelativeTo (null);
-      frame.setVisible (true);
-
-      Game.window = frame;
-
-      Game.state = new PlayState();
-      Game.state.create();
-   }
 }*/
