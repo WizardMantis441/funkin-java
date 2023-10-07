@@ -1,7 +1,5 @@
 package src.funkin;
 
-import javax.swing.*;
-
 import src.backend.*;
 
 public class StrumLine {

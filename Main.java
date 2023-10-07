@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
@@ -51,16 +50,16 @@ public class Main {
 
 		//double uInterval =  / 120; // 120 fps
 		//double nextUTime = System.nanoTime() + uInterval;
-		double delta = 0;
+		// double delta = 0;
 		double lastTime = System.nanoTime();
-		double interval = 1f/120f;
+		// double interval = 1f/120f;
 
 		while (true) {
 			if (canvas.paused) continue;
 
 			//System.out.println("Start");
 			long now = System.nanoTime();
-			delta += (now - lastTime) / 1000000.0;
+			// delta += (now - lastTime) / 1000000.0;
 			double elapsed = (now - lastTime) / 1000000.0;
 			lastTime = now;
 

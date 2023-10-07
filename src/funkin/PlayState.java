@@ -1,7 +1,6 @@
 package src.funkin;
 
 import src.backend.*;
-import src.backend.rendering.Sprite;
 
 public class PlayState extends State {
     StrumLine cpuStrums;
