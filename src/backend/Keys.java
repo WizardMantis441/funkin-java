@@ -9,7 +9,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 
 public class Keys {
-	private static final int PRESSED = 1;
+	private static final int PRESSED = 65;
 	private static final int RELEASED = 0;
 
 	public static volatile int dPressed = RELEASED;

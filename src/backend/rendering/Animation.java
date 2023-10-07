@@ -6,23 +6,22 @@ import java.util.List;
 public class Animation {
     public String imagePath;
     public String animPrefix;
+    public String animName;
     public float fps = 24;
 
     public List<Frame> frames = new ArrayList<Frame>();
     private float _frameTimer = 0;
-    private int numFrames;
     public int curFrame = 0;
-    
+
     public boolean finished = false;
     public boolean paused = false;
     public boolean looped = false;
-    
-    public Animation(String imagePath, String animationPrefix, List<Frame> frames) {
+
+    public Animation(String imagePath, String animationPrefix, List<Frame> frames, String animName) {
         this.imagePath = imagePath;
         this.animPrefix = animationPrefix;
         this.frames = frames;
-
-        this.numFrames = frames.size();
+        this.animName = animName;
     }
 
     public void play() {
@@ -34,12 +33,7 @@ public class Animation {
 
     public void update(double elapsed) {
         Float delay = getDelay();
-        //System.out.println(delay);
-        //System.out.println(finished);
-        //System.out.println(paused);
-        //System.out.println(_frameTimer);
-        //System.out.println(elapsed);
-        //System.out.println(curFrame);
+
 		if (delay == 0 || finished || paused)
 			return;
 
@@ -47,11 +41,11 @@ public class Animation {
 
 		while (_frameTimer > delay && !finished) {
 			_frameTimer -= delay;
-            if (looped && curFrame == numFrames - 1)
+            if (looped && curFrame == frames.size() - 1)
                 curFrame = 0;
             else {
                 curFrame++;
-                if(curFrame == numFrames) {
+                if (curFrame == frames.size()) {
                     curFrame--;
                     finished = true;
                 }

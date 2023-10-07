@@ -14,6 +14,7 @@ import java.awt.event.WindowFocusListener;
 
 public class Main {
 	public static void main(String[] args) {
+
 		GameCanvas canvas = new GameCanvas(1280, 720);
 		Game.window = new JFrame("Friday Night Funkin' - Java Edition");
 		Game.window.add(canvas);
@@ -29,21 +30,22 @@ public class Main {
 		Game.window.setFocusTraversalKeysEnabled(false);
 
 		Game.window.addWindowFocusListener( new WindowFocusListener() {
-        @Override
-        public void windowLostFocus(WindowEvent e) {
-            canvas.paused = true;
-        }
+			@Override
+			public void windowLostFocus(WindowEvent e) {
+				canvas.paused = true;
+			}
 
-        @Override
-        public void windowGainedFocus(WindowEvent e) {
-            canvas.paused = false;
-        }
-    });;
+			@Override
+			public void windowGainedFocus(WindowEvent e) {
+				canvas.paused = false;
+			}
+		});
 
 		Keys.init();
 
 		Game.state = new PlayState();
 		Game.state.create();
+		
 
 		// UPDATE FUNCTION
 
@@ -58,7 +60,7 @@ public class Main {
 
 			//System.out.println("Start");
 			long now = System.nanoTime();
-			delta += (now - lastTime) / 100000000.0;
+			delta += (now - lastTime) / 1000000.0;
 			double elapsed = (now - lastTime) / 1000000.0;
 			lastTime = now;
 
@@ -93,9 +95,9 @@ class GameCanvas extends Canvas implements Runnable, KeyListener {
 	public boolean paused = false;
 
 	public GameCanvas(int width, int height) {
-		setPreferredSize(new Dimension (width, height));
-		setMaximumSize(new Dimension (width, height));
-		setMinimumSize(new Dimension (width, height));
+		setPreferredSize(new Dimension(width, height));
+		setMaximumSize(new Dimension(width, height));
+		setMinimumSize(new Dimension(width, height));
 	}
 
 	@Override
@@ -119,28 +121,20 @@ class GameCanvas extends Canvas implements Runnable, KeyListener {
 	}
 
 	public void draw() {
-
-		BufferStrategy bufferstrategy = getBufferStrategy ();
-
+		BufferStrategy bufferstrategy = getBufferStrategy();
 		if (bufferstrategy == null) {
-			createBufferStrategy (3);
+			createBufferStrategy(3);
 			return;
 		}
 
 		Graphics g = bufferstrategy.getDrawGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0, 0, getWidth(), getHeight());
 
-		g.setColor (Color.white);
-		g.fillRect (0, 0, getWidth (), getHeight ());
-
-		if (Game.state != null) {
+		if (Game.state != null)
 			Game.state.draw(g);
-		}
 
-		g.dispose ();
-		bufferstrategy.show ();
+		g.dispose();
+		bufferstrategy.show();
 	}
 }
-
-/*class KeyListenerJFrame extends JFrame implements KeyListener {
-
-}*/

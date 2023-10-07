@@ -18,8 +18,8 @@ Created with Funkin Packer v0.0.4 https://neeeoo.github.io/funkin-packer/
 	<SubTexture name="up confirm instance 10002" x="693" y="439" width="205" height="204" frameX="-15" frameY="-13" frameWidth="238" frameHeight="234"/>
 	<SubTexture name="blue instance 10000" x="3" y="698" width="158" height="154" frameX="-0" frameY="-0" frameWidth="158" frameHeight="154"/>
 	<SubTexture name="arrow static instance 20000" x="390" y="695" width="157" height="154" frameX="-0" frameY="-1" frameWidth="157" frameHeight="155"/>
-	<SubTexture name="arrow static instance 30000" x="553" y="685" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="157"/>
-	<SubTexture name="arrow static instance 40000" x="713" y="649" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="arrow static instance 40000" x="553" y="685" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="157"/>
+	<SubTexture name="arrow static instance 30000" x="713" y="649" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
 	<SubTexture name="green instance 10000" x="3" y="858" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
 	<SubTexture name="purple instance 10000" x="390" y="855" width="154" height="157" frameX="-0" frameY="-0" frameWidth="154" frameHeight="157"/>
 	<SubTexture name="red instance 10000" x="550" y="855" width="154" height="157" frameX="-0" frameY="-0" frameWidth="154" frameHeight="157"/>

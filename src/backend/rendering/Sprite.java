@@ -20,8 +20,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Arrays;
 import src.backend.rendering.interfaces.Drawable;
 
 public class Sprite extends JPanel implements Drawable {
@@ -61,13 +59,12 @@ public class Sprite extends JPanel implements Drawable {
 	private void loadImage(String path) {
 		try {
 			image = ImageIO.read(new File(path));
-			//this.setLocation((int) x, (int) y);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void addAnim(String animName, String animPrefix) {
+	public void addAnim(String animName, String animPrefix, int fps, boolean looped) {
 		ArrayList<Frame> frames = new ArrayList<Frame>();
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -106,11 +103,9 @@ public class Sprite extends JPanel implements Drawable {
 			e.printStackTrace();
 		}
 
-		// TODO: sorting
-
-		Animation newAnim = new Animation(this.imagePath, animPrefix, frames);
-		newAnim.fps = 24;
-		newAnim.looped = true;
+		Animation newAnim = new Animation(this.imagePath, animPrefix, frames, animName);
+		newAnim.fps = fps;
+		newAnim.looped = looped;
 
 		if (frame == null) {
 			frame = frames.get(0);
@@ -126,8 +121,17 @@ public class Sprite extends JPanel implements Drawable {
 	}
 
 	public void playAnim(String animName) {
-		if (!anims.containsKey(animName))
+		playAnim(animName, false);
+	}
+
+	public void playAnim(String animName, boolean force) {
+		if (!anims.containsKey(animName)) {
+			System.out.println("animation doesnt exist: " + animName);
 			return;
+		}
+		if(curAnim != null && (animName == curAnim.animName) && !force) {
+			return;
+		}
 
 		curAnim = anims.get(animName);
 		curAnim.play();
@@ -168,7 +172,7 @@ public class Sprite extends JPanel implements Drawable {
 			g.drawImage(image, 0, 0, width, height, null);
 		}
 		*/
-		
+
 	}
 
 	public void draw(Graphics g) {

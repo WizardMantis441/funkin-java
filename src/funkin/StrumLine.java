@@ -5,34 +5,20 @@ import javax.swing.*;
 import src.backend.*;
 
 public class StrumLine {
-    public Strum left;
-    public Strum down;
-    public Strum up;
-    public Strum right;
+	public boolean cpu;
 
-    public StrumLine(double position, boolean cpu) {
-        left = new Strum(0, (int) (1280 * position) - 224, 100);
-        Game.window.add(left);
+	public Strum left;
+	public Strum down;
+	public Strum up;
+	public Strum right;
+	public Strum[] strums;
 
-        down = new Strum(1, (int) (1280 * position) - 112, 100);
-        Game.window.add(down);
-        
-        up = new Strum(2, (int) (1280 * position), 100);
-        Game.window.add(up);
-        
-        right = new Strum(3, (int) (1280 * position) + 112, 100);
-        Game.window.add(right);
+	public StrumLine(double position, boolean cpu, int keyAmount) {
+		this.cpu = cpu;
 
-        left.x = 50 + 0 * 300;
-        left.y = 100 + 200 * position;
-        
-        down.x = 50 + 1 * 300;
-        down.y = 100 + 200 * position;
+		strums = new Strum[keyAmount];
+		for(int i = 0; i < keyAmount; i++)
+			Game.state.add(strums[i] = new Strum(this, i, (int) (1280 * position) + ((i - (keyAmount/2)) * 112), 100));
 
-        up.x = 50 + 2 * 300;
-        up.y = 100 + 200 * position;
-
-        right.x = 50 + 3 * 300;
-        right.y = 100 + 200 * position;
-    }
+	}
 }

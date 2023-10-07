@@ -9,14 +9,26 @@ public class PlayState extends State {
 
     public void create() {
         super.create();
-        System.out.println("loaded playstate");
+        // welcome to the underground
+        // how was the fall
+        System.out.println("loaded playstate\u0007");
 
-        cpuStrums = new StrumLine(0.25, true);
-        playerStrums = new StrumLine(0.75, false);
+        cpuStrums = new StrumLine(0.25, true, 4);
+
+        playerStrums = new StrumLine(0.75, false, 4);
+
+        // Strum left = new Strum(0, 100, 100);
+        // add(left);
+        // Strum down = new Strum(1, 200, 100);
+        // add(down);
+        // Strum up = new Strum(2, 300, 100);
+        // add(up);
+        // Strum right = new Strum(3, 400, 100);
+        // add(right);
 
         // Sprite sprite = new Sprite(300, 0, "images/note_assets.png");
         // sprite.setScale(0.5, 0.5);
-        // sprite.addAnim("it", "down confirm instance 1");
+        // sprite.addAnim("it", "down confirm instance 1", 24, true);
         // sprite.playAnim("it");
         // add(sprite);
 
@@ -26,6 +38,7 @@ public class PlayState extends State {
     public void update(double elapsed) {
         super.update(elapsed);
 
+        /*
         playerStrums.left.playAnim("static");
         playerStrums.up.playAnim("static");
         playerStrums.down.playAnim("static");
@@ -47,5 +60,6 @@ public class PlayState extends State {
             System.out.println("K");
             playerStrums.right.playAnim("press");
         }
+        */
     }
 }
