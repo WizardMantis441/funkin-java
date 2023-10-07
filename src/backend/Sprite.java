@@ -115,18 +115,17 @@ public class Sprite extends JPanel {
     }
 
     public void playAnim(String animName) {
-        if (anims.containsKey(animName)) { // look at me being so cautious :)
-            curAnim = anims.get(animName);
-            curAnim.play();
-        } else
-            System.out.println(animName + " IS NOT AN ANIMATION YOU GAY TWAT!!!");
+        if (!anims.containsKey(animName)) 
+            return; 
+        
+        curAnim = anims.get(animName);
+        curAnim.play();
+        
     }
 
     public void setScale(double scaleX, double scaleY) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
-        
-        //this.draw();
     }
 
     public BufferedImage getImage() { return image; }
@@ -147,6 +146,9 @@ public class Sprite extends JPanel {
         int width = (int) (image.getWidth() * scaleX);
         int height = (int) (image.getHeight() * scaleY);
 
+        g.drawImage(image, 0, 0, width, height, null);
+
+        /*
         if (frame == null) {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
@@ -155,12 +157,17 @@ public class Sprite extends JPanel {
             //g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
             g.drawImage(image, 0, 0, width, height, null);
         }
+        */
+        
     }
 
     public void draw(Graphics g) {
         int width = (int) (image.getWidth() * scaleX);
         int height = (int) (image.getHeight() * scaleY);
 
+        g.drawImage(image, 0, 0, width, height, null);
+        
+        /*
         if (frame == null) {
             g.drawImage(image, 0, 0, width, height, null);
         } else {
@@ -176,5 +183,7 @@ public class Sprite extends JPanel {
             //g.drawImage(image, (int)(x - frame.x), (int)(y - frame.y), width, height, null);
             g.drawImage(image, 0, 0, width, height, null);
         }
+        */
+        
     }
 }

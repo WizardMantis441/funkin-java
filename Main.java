@@ -20,24 +20,24 @@ public class Main {
       double nextUTime = System.currentTimeMillis() + uInterval;
 
       while (true) {
-          double curTime = System.currentTimeMillis();
+         double curTime = System.currentTimeMillis();
 
-          if (curTime >= nextUTime) {
-              update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
-              nextUTime += uInterval;
-          }
+         if (curTime >= nextUTime) {
+            update(uInterval - (curTime - nextUTime)); // TODO: idk if this elapsed param is right lmao
+            nextUTime += uInterval;
+         }
 
-          try { // bc i don't wanna overrun the loop lmao
-              Thread.sleep(1);
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
+         try { // bc i don't wanna overrun the loop lmao
+            Thread.sleep(1);
+         } catch (InterruptedException e) {
+            e.printStackTrace();
+         }
       }
    }
 
    public static void update(double elapsed) {
-      if (Game.state == null) return; // l bozo
-      Game.state.update(elapsed);
+      if (Game.state != null)
+         Game.state.update(elapsed);
    }
 }
 

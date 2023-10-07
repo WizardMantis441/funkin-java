@@ -3,8 +3,6 @@ package src.funkin;
 import src.backend.*;
 
 public class PlayState extends State {
-    private static Sprite sprite = null;
-
     public void create() {
         super.create();
 
@@ -13,11 +11,11 @@ public class PlayState extends State {
         // StrumLine cpuStrums = new StrumLine(window, 0.25, true);
         // StrumLine playerStrums = new StrumLine(window, 0.75, false);
 
-        sprite = new Sprite(250, 250, "images/note_assets.png");
+        Sprite sprite = new Sprite(250, 250, "images/note_assets.png");
+        add(sprite);
         // sprite.setScale(0.3, 0.3);
         // sprite.addAnim("it", "left press instance 1");
         // sprite.playAnim("it");
-        add(sprite);
 
         System.out.println("made it :)");
     }
