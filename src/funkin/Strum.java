@@ -6,7 +6,7 @@ import src.backend.rendering.Sprite;
 public class Strum extends Sprite {
    final static String[] strums = {"left", "down", "up", "right"};
 
-   private int id = 0;
+   public int id = 0;
    public String key;
 
    public StrumLine strumLine;
