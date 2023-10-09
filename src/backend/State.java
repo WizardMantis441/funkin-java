@@ -31,7 +31,6 @@ public class State {
     }
 
     public void update(double elapsed) {
-
         // sprite rendering + update function
         for (int i = 0; i < sprites.size(); i++) {
             Sprite spr = sprites.get(i);

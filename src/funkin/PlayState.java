@@ -6,16 +6,17 @@ public class PlayState extends State {
     StrumLine cpuStrums;
     StrumLine playerStrums;
 
+    Note test;
+
     public void create() {
         super.create();
-        System.out.println("loaded playstate");
 
         cpuStrums = new StrumLine(0.25, true, 4);
         playerStrums = new StrumLine(0.75, false, 4);
 
-        
-
-        System.out.println("made it :)");
+        Conductor.songSpeed = 0.5;
+        test = new Note(playerStrums.strums[3], 1500);
+        add(test);
     }
 
     public void update(double elapsed) {

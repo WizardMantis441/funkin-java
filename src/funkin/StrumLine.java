@@ -4,11 +4,6 @@ import src.backend.*;
 
 public class StrumLine {
 	public boolean cpu;
-
-	public Strum left;
-	public Strum down;
-	public Strum up;
-	public Strum right;
 	public Strum[] strums;
 
 	public StrumLine(double position, boolean cpu, int keyAmount) {

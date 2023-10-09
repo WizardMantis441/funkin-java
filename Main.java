@@ -76,6 +76,7 @@ public class Main {
 			elapsed = elapsed / 1000.0;
 			//System.out.println("Fps - " + (1000/elapsed));
 			Keys.update();
+			Conductor.update(elapsed);
 			//System.out.println("Elapsed - " + elapsed);
 			canvas.update(elapsed);
 

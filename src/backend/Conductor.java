@@ -7,6 +7,7 @@ public class Conductor {
     public static Double crochet = ((60 / bpm) * 1000); // beats in ms
     public static Double stepCrochet = crochet / 4; // beats in ms
 
+    public static Double songSpeed = 1.0;
     public static Double songPosition = 0.0;
 
     public static int curStep = 0;
@@ -22,6 +23,10 @@ public class Conductor {
         crochet = ((60 / bpm) * 1000);
         stepCrochet = crochet / 4;
     }
+
+	public static void update(double elapsed) {
+		songPosition += elapsed * 1000;
+	}
 }
 
 /*
