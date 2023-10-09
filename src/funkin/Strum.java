@@ -12,7 +12,7 @@ public class Strum extends Sprite {
    public StrumLine strumLine;
 
    public Strum(StrumLine strumLine, int id, int x, int y) {
-      super(x, y, "images/note_assets.png");
+      super(x, y, "assets/images/note_assets.png");
       this.id = id;
       this.strumLine = strumLine;
 

@@ -9,7 +9,7 @@ public class Note extends Sprite {
     public String[] types = {"purple", "blue", "green", "red"};
 
     public Note(double x, double y, Strum strum, double time) {
-        super(x, y, "images/note_assets.png");
+        super(x, y, "assets/images/note_assets.png");
 
         this.strum = strum;
         this.time = time;

@@ -1,7 +1,7 @@
 package src.backend;
 
 public class Conductor {
-    public static Double bpm = 100.0;
+    private static Double bpm = 100.0;
     // public static Int[] bpmChangeMap = {};
 
     public static Double crochet = ((60 / bpm) * 1000); // beats in ms
