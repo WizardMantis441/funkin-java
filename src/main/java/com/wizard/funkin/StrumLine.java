@@ -1,6 +1,8 @@
 package com.wizard.funkin;
 
-import src.backend.*;
+import com.wizard.backend.Game;
+
+// import com.wizard.backend.*;
 
 public class StrumLine {
 	public boolean cpu;

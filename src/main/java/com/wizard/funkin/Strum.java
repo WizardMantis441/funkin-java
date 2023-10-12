@@ -1,7 +1,7 @@
 package com.wizard.funkin;
 
-import src.backend.Keys;
-import src.backend.rendering.Sprite;
+import com.wizard.backend.Keys;
+import com.wizard.backend.rendering.Sprite;
 
 public class Strum extends Sprite {
    final static String[] strums = {"left", "down", "up", "right"};

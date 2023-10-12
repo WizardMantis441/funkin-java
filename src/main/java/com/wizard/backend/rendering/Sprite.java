@@ -20,7 +20,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 import java.util.Comparator;
-import src.backend.rendering.interfaces.Drawable;
+import com.wizard.backend.rendering.interfaces.Drawable;
 
 public class Sprite extends JPanel implements Drawable {
 	public double x;

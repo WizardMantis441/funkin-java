@@ -1,8 +1,8 @@
 package com.wizard.funkin;
 
-import src.backend.*;
+import com.wizard.backend.*;
 
-import libs.jackson-jr-2-16.jr-objects.src.main.java.com.fasterxml.jackson.jr.ob.JSON;
+// import libs.jackson-jr-2-16.jr-objects.src.main.java.com.fasterxml.jackson.jr.ob.JSON;
 
 public class PlayState extends State {
     StrumLine cpuStrums;
@@ -20,7 +20,7 @@ public class PlayState extends State {
         cpuStrums = new StrumLine(0.25, true, 4);
         playerStrums = new StrumLine(0.75, false, 4);
         
-        JSON chart = new JSONReader or something
+        // JSON chart = new JSONReader or something
 
         // Conductor.songSpeed = 1;
         
