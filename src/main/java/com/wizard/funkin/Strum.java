@@ -12,12 +12,12 @@ public class Strum extends Sprite {
    public StrumLine strumLine;
 
    public Strum(StrumLine strumLine, int id, int x, int y) {
-      super(x, y, "assets/images/note_assets.png");
+      super(x, y, "src/main/java/assets/images/note_assets.png");
       this.id = id;
       this.strumLine = strumLine;
 
       setScale(0.7, 0.7);
-      addAnim("static", "arrow static instance " + (id+1), 24, true); // no wait this fails
+      addAnim("static", "arrow static instance " + (id+1), 24, true);
       addAnim("confirm", strums[id] + " confirm instance 1", 24, false);
       addAnim("press", strums[id] + " press instance 1", 24, false);
       playAnim("press");

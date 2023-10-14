@@ -1,5 +1,6 @@
 package com.wizard.funkin;
 
+import com.wizard.backend.Game;
 import com.wizard.backend.Conductor;
 import com.wizard.backend.rendering.Sprite;
 
@@ -10,20 +11,24 @@ public class Note extends Sprite {
     public String[] types = {"purple", "blue", "green", "red"};
 
     public Note(Strum strum, double time) {
-        super(9999, 9999, "assets/images/note_assets.png");
+        super(10, 10, "src/main/java/assets/images/note_assets.png");
+        System.out.println("new note being made rn");
 
         this.strum = strum;
         this.time = time;
 
         setScale(0.7, 0.7);
         addAnim("note", types[strum.id] + " instance 1", 24, false);
-
         playAnim("note");
+        
+        Game.window.add(this);
     }
 
     public void update(double elapsed) {
         super.update(elapsed);
-        x = strum.x;
-        y = strum.y - (0.45 * (Conductor.songPosition - time) * 2.5);
+        this.x = strum.x;
+        this.y = strum.y - (Conductor.songPosition - this.time);
+        
+        System.out.println("note pos: " + this.x + ", " + this.y);
     }
 }
