@@ -17,17 +17,19 @@ public class StrumLine {
 		this.cpu = cpu;
 
 		strums = new Strum[keyAmount];
-		for(int i = 0; i < keyAmount; i++)
+		for (int i = 0; i < keyAmount; i++)
 			Game.state.add(strums[i] = new Strum(this, i, (int) (1280 * position) + ((i - (keyAmount/2)) * 112), 100));
 
 	}
    
-   // public void addNote(Note note) {
-   //    notes.add(note);
-   // }
+   public void makeNote(int id, double time) {
+      Note n = new Note(strums[id], time);
+
+      notes.add(n);
+   }
    
    public void update(double elapsed) { // idk if this is ran lol
-      // super.update(elapsed);
+      super.update(elapsed); // help
       
         for (int i = 0; i < notes.size(); i++) {
             Note n = notes.get(i);

@@ -20,14 +20,16 @@ public class Note extends Sprite {
         setScale(0.7, 0.7);
         addAnim("note", types[strum.id] + " instance 1", 24, false);
         playAnim("note");
+        System.out.println("erm note MADE?");
         
         Game.window.add(this);
+        this.draw(getGraphics());
     }
 
     public void update(double elapsed) {
         super.update(elapsed);
         this.x = strum.x;
-        this.y = strum.y - (Conductor.songPosition - this.time);
+        this.y = strum.y - (Conductor.songPosition - this.time) / 5;
         
         System.out.println("note pos: " + this.x + ", " + this.y);
     }
