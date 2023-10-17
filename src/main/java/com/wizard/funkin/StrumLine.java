@@ -22,9 +22,8 @@ public class StrumLine {
 
 	}
    
-   public void makeNote(int id, double time) {
-      Note n = new Note(strums[id], time);
-
+   public void makeNote(int id, double t) {
+      Note n = new Note(strums[(int) id], t);
       notes.add(n);
    }
    

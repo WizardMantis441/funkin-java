@@ -1,5 +1,6 @@
 package com.wizard.funkin;
 
+import com.wizard.backend.Paths;
 import com.wizard.backend.Keys;
 import com.wizard.backend.rendering.Sprite;
 
@@ -12,7 +13,7 @@ public class Strum extends Sprite {
    public StrumLine strumLine;
 
    public Strum(StrumLine strumLine, int id, int x, int y) {
-      super(x, y, "src/main/java/assets/images/note_assets.png");
+      super(x, y, Paths.image("note_assets"));
       this.id = id;
       this.strumLine = strumLine;
 
