@@ -1,13 +1,13 @@
 package com.wizard.funkin;
 
+import java.awt.Graphics;
 import com.wizard.backend.*;
 // import org.json.simple.parser.*;
+import com.wizard.backend.rendering.Sprite;
 
 public class PlayState extends State {
     StrumLine cpuStrums;
     StrumLine playerStrums;
-
-    // Note testNote;
 
     public void create() {
        super.create();
@@ -24,7 +24,14 @@ public class PlayState extends State {
 
     public void update(double elapsed) {
         super.update(elapsed);
-       System.out.println(Conductor.songPosition);
-    //    testNote.update(elapsed);
+
+        cpuStrums.update(elapsed);
+        playerStrums.update(elapsed);
+    }
+
+    public void draw(Graphics g) {
+        super.draw(g);
+        cpuStrums.draw();
+        playerStrums.draw();
     }
 }

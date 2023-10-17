@@ -100,6 +100,8 @@ class GameCanvas extends Canvas implements Runnable, KeyListener {
 		}
 
 		Graphics g = bufferstrategy.getDrawGraphics();
+		Game.g = g; // ez win i think?
+
 		g.setColor(Color.white);
 		g.fillRect(0, 0, getWidth(), getHeight());
 

@@ -29,11 +29,19 @@ public class StrumLine {
    }
    
    public void update(double elapsed) { // idk if this is ran lol
-      super.update(elapsed); // help
+      // super.update(elapsed); // help
       
         for (int i = 0; i < notes.size(); i++) {
             Note n = notes.get(i);
             n.update(elapsed);
+        }
+   }
+
+   public void draw() {
+      for (int i = 0; i < notes.size(); i++) {
+            Note n = notes.get(i);
+            System.out.println("PENIS");
+            n.draw(Game.g); // lmao fuck you?
         }
    }
 }
