@@ -37,6 +37,11 @@ public class StrumLine {
       
       for (int i = 0; i < notes.size(); i++) {
          Note n = notes.get(i);
+         if (n.strum.strumLine.cpu && n.time <= Conductor.songPosition) {
+            System.out.println("GET THIS FELLA OUTTA HEREEE");
+            notes.remove(n);
+            Game.window.remove(n);
+         }
          n.update(elapsed);
       }
 
