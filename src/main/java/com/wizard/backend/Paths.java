@@ -5,6 +5,7 @@ package com.wizard.backend;
 public class Paths {
     public static String asset(String name) {
         return "src/main/java/assets/" + name;
+        // return "assets/" + name;
     }
 
     public static String image(String name) {
