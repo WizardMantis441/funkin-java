@@ -27,14 +27,15 @@ public class Strum extends Sprite {
    public void update(double elapsed) {
       super.update(elapsed);
 
-      boolean pressed = false;
-      switch (id) {
-         case 0: pressed = Keys.pressed_D(); break;
-         case 1: pressed = Keys.pressed_F(); break;
-         case 2: pressed = Keys.pressed_J(); break;
-         case 3: pressed = Keys.pressed_K(); break;
-      }
+      // btw this is temporary just reminding myself
+      // boolean pressed = false;
+      // switch (id) {
+      //    case 0: pressed = Keys.pressed_D(); break;
+      //    case 1: pressed = Keys.pressed_F(); break;
+      //    case 2: pressed = Keys.pressed_J(); break;
+      //    case 3: pressed = Keys.pressed_K(); break;
+      // }
 
-      playAnim((pressed && !strumLine.cpu) ? "press" : "static");
+      // playAnim((pressed && !strumLine.cpu) ? "press" : "static");
    }
 }

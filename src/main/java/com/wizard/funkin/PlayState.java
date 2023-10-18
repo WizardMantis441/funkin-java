@@ -13,6 +13,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class PlayState extends State {
+    String song = "tutorial";
+
     StrumLine cpuStrums;
     StrumLine playerStrums;
 
@@ -23,20 +25,10 @@ public class PlayState extends State {
         cpuStrums = new StrumLine(0.25, true, 4);
         playerStrums = new StrumLine(0.75, false, 4);
 
-        cpuStrums.makeNote(0, 1000.0);
-        cpuStrums.makeNote(1, 2000.0);
-        cpuStrums.makeNote(2, 3000.0);
-        cpuStrums.makeNote(3, 4000.0);
-        playerStrums.makeNote(0, 1000.0);
-        playerStrums.makeNote(1, 2000.0);
-        playerStrums.makeNote(2, 3000.0);
-        playerStrums.makeNote(3, 4000.0);
-
-        /*
         JSONObject chart = null;
 
         try {
-            chart = (JSONObject) new JSONParser().parse(new FileReader(Paths.songChart("ugh")));
+            chart = (JSONObject) new JSONParser().parse(new FileReader(Paths.songChart(song)));
         } catch (FileNotFoundException e) { // bro java stinks what IS THISSS
             e.printStackTrace();
         } catch (IOException e) {
@@ -51,10 +43,24 @@ public class PlayState extends State {
 
             JSONArray notes = (JSONArray) strumLine.get("notes");
             for (int n = 0; n < notes.size(); n++) {
+                System.out.println("new note");
+
                 JSONObject note = (JSONObject) notes.get(n);
 
-                int newID = note.get("id"); // THESE ARE THE ISSUES GRAHHHHH
-                double newTime = note.get("time");
+                Long longID = (long) note.get("id");
+                int newID = longID.intValue();
+                
+                double newTime = 0.0;
+                Object timeValue = note.get("time");
+                if (timeValue instanceof Long) { // stupid way of making sure that the types are correct to cast properly
+                    Long longTime = (Long) timeValue;
+                    newTime = longTime.doubleValue();
+                } else if (timeValue instanceof Double) {
+                    Double doubleTime = (Double) timeValue;
+                    newTime = doubleTime;
+                } else {
+                    System.err.println("tf you got in the json??? how?????");
+                }
                 
                 if (i == 0)
                     cpuStrums.makeNote(newID, newTime);
@@ -62,7 +68,6 @@ public class PlayState extends State {
                     playerStrums.makeNote(newID, newTime);
             }
         }
-        */
 
         System.out.println("playstate finished");
     }
