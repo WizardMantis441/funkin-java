@@ -3,6 +3,8 @@ package com.wizard.backend;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -47,12 +49,26 @@ public class Chart {
                     newTime = doubleTime;
                 } else
                     System.err.println("tf you got in the json??? how?????");
+
+                double newLength = 0.0;
+                Object lengthValue = note.get("sLen");
+                if (lengthValue instanceof Long) { // stupid way of making sure that the types are correct to cast properly
+                    Long longTime = (Long) lengthValue;
+                    newLength = longTime.doubleValue();
+                } else if (lengthValue instanceof Double) {
+                    Double doubleLen = (Double) lengthValue;
+                    newLength = doubleLen;
+                } else
+                    System.err.println("tf you got in the json??? how?????");
                 
                 if (i == 0)
-                    PlayState.cpuStrums.makeNote(newID, newTime);
+                    PlayState.cpuStrums.makeNote(newTime, newID, newLength, "Default");
                 else if (i == 1)
-                    PlayState.playerStrums.makeNote(newID, newTime);
+                    PlayState.playerStrums.makeNote(newTime, newID, newLength, "Default");
             }
         }
+
+        Collections.sort(PlayState.cpuStrums.unspawnedNotes, Comparator.comparingDouble(n -> n.hitTime));
+        Collections.sort(PlayState.playerStrums.unspawnedNotes, Comparator.comparingDouble(n -> n.hitTime));
     }
 }

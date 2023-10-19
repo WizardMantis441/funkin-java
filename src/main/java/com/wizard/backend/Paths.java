@@ -13,11 +13,11 @@ public class Paths {
     }
 
     public static String songInst(String song) {
-        return asset("songs/" + song + "/Inst.ogg");
+        return asset("songs/" + song + "/Inst.wav");
     }
 
     public static String songVoices(String song) {
-        return asset("songs/" + song + "/Voices.ogg");
+        return asset("songs/" + song + "/Voices.wav");
     }
 
     public static String songChart(String song) {

@@ -50,14 +50,22 @@ public class Keys {
 
 	private static void keyDown(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		justPressedKeys.put(KeyEvent.getKeyText(keyCode), true);
-		pressedKeys.put(KeyEvent.getKeyText(keyCode), true);
+		String keyText = KeyEvent.getKeyText(keyCode);
+		if(pressedKeys.get(keyText) != null && pressedKeys.get(keyText) == true)
+			return;
+
+		justPressedKeys.put(keyText, true);
+		pressedKeys.put(keyText, true);
 	}
 	
 	private static void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		justReleasedKeys.put(KeyEvent.getKeyText(keyCode), true);
-		pressedKeys.put(KeyEvent.getKeyText(keyCode), false);
+		String keyText = KeyEvent.getKeyText(keyCode);
+		if(pressedKeys.get(keyText) != null && pressedKeys.get(keyText) == false)
+			return;
+		
+		justReleasedKeys.put(keyText, true);
+		pressedKeys.put(keyText, false);
 	}
 
 	public static void init() {

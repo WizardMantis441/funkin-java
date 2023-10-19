@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import com.wizard.backend.*;
 
 public class PlayState extends State {
-    String song = "tutorial";
+    String song = "ugh";
+
+    public static Sound inst;
 
     public static StrumLine cpuStrums;
     public static StrumLine playerStrums;
@@ -17,6 +19,9 @@ public class PlayState extends State {
         playerStrums = new StrumLine(0.75, false, 4);
 
         Chart.parse(song);
+
+        inst = new Sound();
+        inst.play(Paths.songInst(song));
 
         System.out.println("playstate finished");
     }

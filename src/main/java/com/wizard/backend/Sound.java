@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.sound.sampled.*;
 
-public class Sound { //shit
+public class Sound {
     public Clip clip;
     public boolean paused;
     public long startTime;

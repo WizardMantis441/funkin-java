@@ -1,5 +1,7 @@
 package com.wizard.backend;
 
+import com.wizard.funkin.PlayState;
+
 public class Conductor {
     private static Double bpm = 100.0;
     // public static Int[] bpmChangeMap = {};
@@ -25,7 +27,7 @@ public class Conductor {
     }
 
 	public static void update(double elapsed) {
-		songPosition += elapsed * 1000;
+		songPosition = (double) PlayState.inst.getTime();
 	}
 }
 

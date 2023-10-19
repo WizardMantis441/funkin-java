@@ -17,6 +17,7 @@ public class StrumLine {
 	public Strum[] strums;
    
    public List<Note> notes = new ArrayList<Note>();
+   public List<UnspawnNote> unspawnedNotes = new ArrayList<UnspawnNote>();
 
 	public StrumLine(double position, boolean cpu, int keyAmount) {
 		this.cpu = cpu;
@@ -27,18 +28,29 @@ public class StrumLine {
 
 	}
    
-   public void makeNote(int id, double t) {
-      Note n = new Note(strums[(int) id], t);
-      notes.add(n);
+   public void makeNote(double hitTime, int direction, double length, String type) {
+      unspawnedNotes.add(new UnspawnNote(hitTime, direction, length, type));
    }
    
-   public void update(double elapsed) { // idk if this is ran lol
-      // super.update(elapsed); // help
-      
+   public void update(double elapsed) {
+      while (!unspawnedNotes.isEmpty() && unspawnedNotes.get(0).hitTime < Conductor.songPosition + 1500) {
+         UnspawnNote data = unspawnedNotes.get(0);
+
+         Note note = new Note(strums[data.direction], data.hitTime);
+         notes.add(note);
+
+         // NOW TEST, and undeafen
+         unspawnedNotes.remove(data);
+      }
+
       for (int i = 0; i < notes.size(); i++) {
          Note n = notes.get(i);
          if (n.strum.strumLine.cpu && n.time <= Conductor.songPosition) {
-            System.out.println("GET THIS CPU LOOKIN NOTE OUTTA HERE >:(");
+            n.destroy();
+            notes.remove(n);
+         }
+         if (n.time < Conductor.songPosition - 500) {
+            // we do missing logic here too
             n.destroy();
             notes.remove(n);
          }
@@ -69,7 +81,6 @@ public class StrumLine {
          int keyID_again = keyID; // workaround for java being actually an idiot
          boolean hasHitNote = false;
 
-         System.out.println("erm ghost tap much?");
          List<Note> possibleNotes = notes.stream()
             .filter(n -> n != null)
             .filter(n -> !n.strum.strumLine.cpu)
@@ -79,7 +90,6 @@ public class StrumLine {
 
          if (possibleNotes.size() > 0) {
             hasHitNote = true;
-            System.out.println("<> note hit!!!");
             Collections.sort(possibleNotes, Comparator.comparingDouble(n -> n.time));
             
             Note n = possibleNotes.get(0);
