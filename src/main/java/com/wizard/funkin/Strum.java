@@ -19,23 +19,26 @@ public class Strum extends Sprite {
 
       setScale(0.7, 0.7);
       addAnim("static", "arrow static instance " + (id+1), 24, true);
-      addAnim("confirm", strums[id] + " confirm instance 1", 24, false);
       addAnim("press", strums[id] + " press instance 1", 24, false);
+      addAnim("confirm", strums[id] + " confirm instance 1", 24, false);
       playAnim("static");
    }
 
-   public void update(double elapsed) {
-      super.update(elapsed);
+   public void playAnim(String animName, boolean force) {
+      super.playAnim(animName, force);
 
-      // btw this is temporary just reminding myself
-      // boolean pressed = false;
-      // switch (id) {
-      //    case 0: pressed = Keys.pressed_D(); break;
-      //    case 1: pressed = Keys.pressed_F(); break;
-      //    case 2: pressed = Keys.pressed_J(); break;
-      //    case 3: pressed = Keys.pressed_K(); break;
-      // }
+      switch (getAnimName()) {
+         case "press":
+            setOffset(2.0, 2.0);
+            break;
 
-      // playAnim((pressed && !strumLine.cpu) ? "press" : "static");
+         case "confirm":
+            setOffset(-25.0, -25.0);
+            break;
+
+         default:
+            setOffset(0.0, 0.0);
+            break;
+      }
    }
 }

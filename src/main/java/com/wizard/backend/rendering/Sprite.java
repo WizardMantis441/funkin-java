@@ -28,6 +28,9 @@ public class Sprite extends JPanel implements Drawable {
 	public double x;
 	public double y;
 
+	public double offsetX = 0.0;
+	public double offsetY = 0.0;
+
 	public double scaleX = 1.0;
 	public double scaleY = 1.0;
 
@@ -134,9 +137,20 @@ public class Sprite extends JPanel implements Drawable {
 		curAnim.play();
 	}
 
-	public void setScale(double scaleX, double scaleY) {
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
+	public String getAnimName() {
+		if(curAnim == null)
+			return null;
+		return curAnim.animName;
+	}
+
+	public void setScale(double sx, double sy) {
+		this.scaleX = sx;
+		this.scaleY = sy;
+	}
+
+	public void setOffset(double ox, double oy) {
+		this.offsetX = ox;
+		this.offsetY = oy;
 	}
 
 	public BufferedImage getImage() { return image; }
@@ -181,10 +195,10 @@ public class Sprite extends JPanel implements Drawable {
 		//g.drawImage(image, 0, 0, width, height, null);
 
 		if (frame == null) {
-			g.drawImage(image, (int)x, (int)y, width, height, null);
+			g.drawImage(image, (int)(x + offsetX), (int)(y + offsetY), width, height, null);
 		} else {
-			double xx = x - frame.x * scaleX;
-			double yy = y - frame.y * scaleY;
+			double xx = (x + offsetX) - frame.x * scaleX;
+			double yy = (y + offsetY) - frame.y * scaleY;
 			xx -= frame.frameX * scaleX;
 			yy -= frame.frameY * scaleY;
 
