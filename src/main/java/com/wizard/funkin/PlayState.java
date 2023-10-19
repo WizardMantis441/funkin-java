@@ -7,6 +7,7 @@ public class PlayState extends State {
     String song = "ugh";
 
     public static Sound inst;
+    public static Sound voices;
 
     public static StrumLine cpuStrums;
     public static StrumLine playerStrums;
@@ -22,6 +23,9 @@ public class PlayState extends State {
 
         inst = new Sound();
         inst.play(Paths.songInst(song));
+
+        voices = new Sound();
+        voices.play(Paths.songVoices(song));
 
         System.out.println("playstate finished");
     }
