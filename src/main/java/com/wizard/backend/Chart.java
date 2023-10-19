@@ -32,7 +32,7 @@ public class Chart {
             JSONObject strumLine = (JSONObject) strumLines.get(i);
             JSONArray notes = (JSONArray) strumLine.get("notes");
             for (int n = 0; n < notes.size(); n++) {
-                System.out.println("new note");
+                // System.out.println("new note");
 
                 JSONObject note = (JSONObject) notes.get(n);
 

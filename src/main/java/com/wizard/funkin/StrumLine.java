@@ -39,7 +39,6 @@ public class StrumLine {
          Note note = new Note(strums[data.direction], data.hitTime);
          notes.add(note);
 
-         // NOW TEST, and undeafen
          unspawnedNotes.remove(data);
       }
 

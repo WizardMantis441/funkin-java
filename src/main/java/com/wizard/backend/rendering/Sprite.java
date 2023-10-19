@@ -152,6 +152,11 @@ public class Sprite extends JPanel implements Drawable {
 		this.offsetX = ox;
 		this.offsetY = oy;
 	}
+   
+   public void setAnimOffset(String anim, double ox, double oy) {
+      anims.get(anim).offsetX = ox;
+      anims.get(anim).offsetY = oy;
+   }
 
 	public BufferedImage getImage() { return image; }
 
@@ -172,33 +177,17 @@ public class Sprite extends JPanel implements Drawable {
 		int height = (int) (image.getHeight() * scaleY);
 
 		g.drawImage(image, 0, 0, width, height, null);
-
-		/*
-		if (frame == null) {
-			g.drawImage(image, 0, 0, width, height, null);
-		} else {
-			System.out.println(frame);
-			// g.setClip(0, 0, (int) (frame.width * scaleX), (int) (frame.height * scaleY));
-			//g.drawImage(image, (int) (x - frame.x), (int) (y - frame.y), width, height, null);
-			g.drawImage(image, 0, 0, width, height, null);
-		}
-		*/
-
 	}
 
 	public void draw(Graphics g) {
 		int width = (int) (image.getWidth() * scaleX);
 		int height = (int) (image.getHeight() * scaleY);
 
-		//System.out.println("draw");
-
-		//g.drawImage(image, 0, 0, width, height, null);
-
 		if (frame == null) {
 			g.drawImage(image, (int)(x + offsetX), (int)(y + offsetY), width, height, null);
 		} else {
-			double xx = (x + offsetX) - frame.x * scaleX;
-			double yy = (y + offsetY) - frame.y * scaleY;
+			double xx = (x + offsetX + curAnim.offsetX) - frame.x * scaleX;
+			double yy = (y + offsetY + curAnim.offsetY) - frame.y * scaleY;
 			xx -= frame.frameX * scaleX;
 			yy -= frame.frameY * scaleY;
 
@@ -209,7 +198,7 @@ public class Sprite extends JPanel implements Drawable {
 
 	public void destroy() {
 		Game.window.remove(this); // good idea wiz, 10/10 gol den balloon stars // thanks sword cude 10/10 response thx homie // welcome to fucking // dont say that what if my teacher sees omg!!!! // oh fuck you're so fucking right i would never fucking swear in my whole fucking life shit bro // OKAY BUDDY YOURE DONE
-		image.flush();
+		if (this.image != null) image.flush();
 		if (anims != null) anims.clear();
 		image = null;
 		anims = null;
@@ -223,9 +212,4 @@ class FrameSortingComparator implements Comparator<Frame> {
     public int compare(Frame i1, Frame i2) {
         return i1.name.compareTo(i2.name);
     }
-    /*public static void main (String[] args) {
-          List<Integer> numbers = Arrays.asList(4, 2, 5, 1, 3);
-        numbers.sort(new IntegerDescendingComparator());
-        System.out.println(numbers); // [5, 4, 3, 2, 1]
-    }*/
 }

@@ -1,7 +1,6 @@
 package com.wizard.funkin;
 
 import com.wizard.backend.Paths;
-import com.wizard.backend.Keys;
 import com.wizard.backend.rendering.Sprite;
 
 public class Strum extends Sprite {
@@ -20,13 +19,16 @@ public class Strum extends Sprite {
       setScale(0.7, 0.7);
       addAnim("static", "arrow static instance " + (id+1), 24, true);
       addAnim("press", strums[id] + " press instance 1", 24, false);
+      setAnimOffset("press", 2.0, 2.0);
       addAnim("confirm", strums[id] + " confirm instance 1", 24, false);
+      setAnimOffset("confirm", -25.0, -25.0);
       playAnim("static");
    }
 
    public void playAnim(String animName, boolean force) {
       super.playAnim(animName, force);
 
+      /*
       switch (getAnimName()) {
          case "press":
             setOffset(2.0, 2.0);
@@ -40,5 +42,6 @@ public class Strum extends Sprite {
             setOffset(0.0, 0.0);
             break;
       }
+      */
    }
 }

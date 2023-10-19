@@ -8,6 +8,9 @@ public class Animation {
     public String animPrefix;
     public String animName;
     public float fps = 24;
+    
+    public double offsetX = 0.0;
+    public double offsetY = 0.0;
 
     public List<Frame> frames = new ArrayList<Frame>();
     private float _frameTimer = 0;
