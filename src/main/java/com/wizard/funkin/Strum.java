@@ -21,7 +21,7 @@ public class Strum extends Sprite {
       addAnim("static", "arrow static instance " + (id+1), 24, true);
       addAnim("confirm", strums[id] + " confirm instance 1", 24, false);
       addAnim("press", strums[id] + " press instance 1", 24, false);
-      playAnim("press");
+      playAnim("static");
    }
 
    public void update(double elapsed) {

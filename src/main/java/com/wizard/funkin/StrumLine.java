@@ -45,16 +45,25 @@ public class StrumLine {
          n.update(elapsed);
       }
 
+      // don't do input if we're cpu
+      if (cpu) return;
+
       // literally almost the entire input system
-      boolean[] inputs = {
-         Keys.justPressed_D(),
-         Keys.justPressed_F(),
-         Keys.justPressed_J(),
-         Keys.justPressed_K()
+      boolean[] pInputs = {
+         Keys.justPressed("D"),
+         Keys.justPressed("F"),
+         Keys.justPressed("J"),
+         Keys.justPressed("K")
+      };
+      boolean[] rInputs = {
+         Keys.justReleased("D"),
+         Keys.justReleased("F"),
+         Keys.justReleased("J"),
+         Keys.justReleased("K")
       };
 
-      for (int keyID = 0; keyID < inputs.length; keyID++) {
-         if (!inputs[keyID])
+      for (int keyID = 0; keyID < pInputs.length; keyID++) {
+         if (!pInputs[keyID])
             continue;
 
          int keyID_again = keyID; // workaround for java being actually an idiot
@@ -78,17 +87,15 @@ public class StrumLine {
             notes.remove(n);
          }
 
-         strums[keyID].playAnim(hasHitNote ? "confirm" : "press");
+         strums[keyID].playAnim(hasHitNote ? "confirm" : "press", true);
       }
       
-      // TODO: here i need a function or if condition to check when a key is released
-      // it would look something like this
-      /*
-       * if (Keys.justReleased_D) {
-       *    strums[0].playAnim("static", true);
-       * }
-       */
+      for (int keyID = 0; keyID < rInputs.length; keyID++) {
+         if (!rInputs[keyID])
+            continue;
 
+         strums[keyID].playAnim("static");
+      }
    }
 
    public void draw() {

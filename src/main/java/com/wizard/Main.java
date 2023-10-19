@@ -57,9 +57,9 @@ public class Main {
 			lastTime = now;
 
 			elapsed = elapsed / 1000.0;
-			Keys.update();
 			Conductor.update(elapsed);
 			canvas.update(elapsed);
+			Keys.update();
 			canvas.draw();
 
 			try { // bc i don't wanna overrun the loop lmao
