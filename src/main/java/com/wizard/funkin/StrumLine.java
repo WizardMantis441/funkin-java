@@ -38,34 +38,47 @@ public class StrumLine {
       for (int i = 0; i < notes.size(); i++) {
          Note n = notes.get(i);
          if (n.strum.strumLine.cpu && n.time <= Conductor.songPosition) {
-            System.out.println("GET THIS FELLA OUTTA HEREEE");
+            System.out.println("GET THIS CPU LOOKIN NOTE OUTTA HERE >:(");
+            n.destroy();
             notes.remove(n);
-            Game.window.remove(n);
          }
          n.update(elapsed);
       }
 
       // literally almost the entire input system
-      if (Keys.justPressed_D()) {
+      boolean[] inputs = {
+         Keys.justPressed_D(),
+         Keys.justPressed_F(),
+         Keys.justPressed_J(),
+         Keys.justPressed_K()
+      };
+
+      for (int keyID = 0; keyID < inputs.length; keyID++) {
+         if (!inputs[keyID])
+            continue;
+
+         int keyID_again = keyID; // workaround for java being actually an idiot
          boolean hasHitNote = false;
 
-         System.out.println("hey");
+         System.out.println("erm ghost tap much?");
          List<Note> possibleNotes = notes.stream()
             .filter(n -> n != null)
             .filter(n -> !n.strum.strumLine.cpu)
-            .filter(n -> n.strum.id == 0)
-            .filter(n -> Math.abs(Conductor.songPosition - n.time) < 250)
+            .filter(n -> n.strum.id == keyID_again)
+            .filter(n -> Math.abs(Conductor.songPosition - n.time) < 100) // 166 is the fnf one but i'm not doing ratings, leaving that for later
             .collect(Collectors.toList());
 
          if (possibleNotes.size() > 0) {
             hasHitNote = true;
-            System.out.println("heyo!!");
-            Collections.sort(possibleNotes, Comparator.comparingDouble(note -> note.time));
-            Game.window.remove(possibleNotes.get(0));
-            possibleNotes.remove(0);
+            System.out.println("<> note hit!!!");
+            Collections.sort(possibleNotes, Comparator.comparingDouble(n -> n.time));
+            
+            Note n = possibleNotes.get(0);
+            n.destroy();
+            notes.remove(n);
          }
 
-         strums[0].playAnim(hasHitNote ? "confirm" : "press");
+         strums[keyID].playAnim(hasHitNote ? "confirm" : "press");
       }
       
       // TODO: here i need a function or if condition to check when a key is released

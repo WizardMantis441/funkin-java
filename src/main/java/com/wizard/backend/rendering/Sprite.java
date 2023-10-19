@@ -20,6 +20,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 import java.util.Comparator;
+
+import com.wizard.backend.Game;
 import com.wizard.backend.rendering.interfaces.Drawable;
 
 public class Sprite extends JPanel implements Drawable {
@@ -189,6 +191,16 @@ public class Sprite extends JPanel implements Drawable {
 			g.setClip((int)(xx + frame.x * scaleX), (int) (yy + frame.y * scaleY), (int) (frame.width * scaleX), (int) (frame.height * scaleY));
 			g.drawImage(image, (int)(xx), (int)(yy), width, height, null);
 		}
+	}
+
+	public void destroy() {
+		Game.window.remove(this); // good idea wiz, 10/10 gol den balloon stars // thanks sword cude 10/10 response thx homie // welcome to fucking // dont say that what if my teacher sees omg!!!! // oh fuck you're so fucking right i would never fucking swear in my whole fucking life shit bro // OKAY BUDDY YOURE DONE
+		image.flush();
+		if (anims != null) anims.clear();
+		image = null;
+		anims = null;
+		frame = null;
+		curAnim = null;
 	}
 }
 
