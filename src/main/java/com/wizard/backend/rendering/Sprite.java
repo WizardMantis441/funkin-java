@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 import java.util.Comparator;
 
+import com.wizard.backend.Cache;
 import com.wizard.backend.Game;
 import com.wizard.backend.rendering.interfaces.Drawable;
 
@@ -62,11 +63,7 @@ public class Sprite extends JPanel implements Drawable {
 	}
 
 	private void loadImage(String path) {
-		try {
-			image = ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		image = Cache.getImage(path);
 	}
 
 	public void addAnim(String animName, String animPrefix, int fps, boolean looped) {
