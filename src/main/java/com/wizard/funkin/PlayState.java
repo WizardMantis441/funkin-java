@@ -12,7 +12,7 @@ public class PlayState extends State {
     public static StrumLine cpuStrums;
     public static StrumLine playerStrums;
 
-    private double elapsed;
+    //private double elapsed;
 
     public void create() {
         super.create();
@@ -37,7 +37,7 @@ public class PlayState extends State {
         cpuStrums.update(elapsed);
         playerStrums.update(elapsed);
 
-        this.elapsed = elapsed;
+        //this.elapsed = elapsed;
     }
 
     public void draw(Graphics g) {
@@ -46,6 +46,6 @@ public class PlayState extends State {
         playerStrums.draw();
         
         // print fps
-        System.out.println(1/elapsed);
+        //System.out.println(1/elapsed);
     }
 }
