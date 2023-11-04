@@ -2,10 +2,13 @@
 
 package com.wizard.backend;
 
+import com.wizard.backend.Cache;
+import java.awt.image.BufferedImage;
+
+
 public class Paths {
     public static String asset(String name) {
-        return "src/main/java/assets/" + name;
-        // return "assets/" + name;
+        return "main/java/assets/" + name;
     }
 
     public static String image(String name) {
