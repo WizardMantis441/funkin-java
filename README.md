@@ -1,5 +1,3 @@
-### Wizard if you see this, this is just for me to mess around with :) you can ignore it, its just me messing with java thoughts i had
-
 yo whaddup
 
 ok so this is technically a school project, if you wanna change something please don't overhaul everything
